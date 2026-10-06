@@ -120,6 +120,7 @@ export interface Project {
   date: string;
   stack: string[];
   image: string;
+  gallery?: string[];
   links: Link[];
   stickyMeta?: ProjectStickyMeta;
   metrics?: ProjectMetric[];

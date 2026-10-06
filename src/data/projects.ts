@@ -23,6 +23,7 @@ export const projects: Project[] = [
     narrative:
       'Engineered to resolve financial privacy concerns and eliminate transaction query latency without relying on continuous cloud connectivity. All wallet operations, balance audits, and budgeting logic execute instantaneously on an offline-first SQLite/Drift local database powered by reactive Riverpod state flows.',
     image: '/images/arthawira.png',
+    gallery: ['/images/arthawira.png', '/images/arthawira-screen.png'],
     stack: ['Flutter', 'Dart', 'Riverpod', 'Drift (SQLite)', 'Supabase', 'Figma'],
     links: [
       { label: 'Website & App', href: 'https://arthawira.vercel.app/' },
@@ -59,7 +60,14 @@ export const projects: Project[] = [
       'Mobile computer vision application for detecting and classifying traditional Javanese script (Aksara Jawa) using Flutter, OpenCV image preprocessing, and a trained Convolutional Neural Network (CNN).',
     narrative:
       'A cultural heritage preservation system utilizing computer vision to digitize traditional Javanese script. Combines a real-time mobile camera capture pipeline, canvas image preprocessing, and Convolutional Neural Network (CNN) inference with an interactive learning interface.',
-    image: '/images/project-2.png',
+    image: '/images/jawir-3.png',
+    gallery: [
+      '/images/jawir-3.png',
+      '/images/jawir-2.png',
+      '/images/jawir-1.png',
+      '/images/jawir.png',
+      '/images/jawir-4.png',
+    ],
     stack: ['Flutter', 'Dart', 'CNN', 'Python', 'OpenCV', 'REST API'],
     links: [
       { label: 'GitHub Repo', href: 'https://github.com/AlvianPh/aksara_detection' },
@@ -93,7 +101,8 @@ export const projects: Project[] = [
       'Fullstack rental property management platform built with Laravel MVC and MySQL. Features multi-room tenant leasing, automated WhatsApp payment billing reminders, income audits, and staff RBAC.',
     narrative:
       'Eliminated manual rental tracking inefficiencies and overdue payment follow-ups. This web platform automates digital invoice dispatch via WhatsApp business templates and provides real-time room occupancy metrics for property managers.',
-    image: '/images/project-3.png',
+    image: '/images/seulanga.png',
+    gallery: ['/images/seulanga.png'],
     stack: ['Laravel', 'PHP', 'MySQL', 'Tailwind CSS', 'WhatsApp Gateway', 'REST API'],
     links: [
       { label: 'GitHub Repo', href: 'https://github.com/AlvianPh/laravel_seulanga' },
@@ -128,6 +137,13 @@ export const projects: Project[] = [
     narrative:
       'An active administrative human resource system deployed in production for STMIK El Rahma Yogyakarta. Replaced physical paper archives with centralized digital records, academic promotion tracking, and tiered administrative role-based access.',
     image: '/images/simpeg.png',
+    gallery: [
+      '/images/simpeg.png',
+      '/images/simpeg-1.png',
+      '/images/simpeg-2.png',
+      '/images/simpeg-3.png',
+      '/images/simpeg-4.png',
+    ],
     stack: ['Laravel', 'PHP', 'MySQL', 'Blade Components', 'Bootstrap', 'Git'],
     links: [
       { label: 'GitHub Repo', href: 'https://github.com/ilhanmanzis/simpeg' },
@@ -161,7 +177,14 @@ export const projects: Project[] = [
       'Comprehensive product design case study and high-fidelity prototype for construction site safety monitoring. Features daily digital check-in workflows, PPE (K3) inspection checklists, and verified hazard incident reporting.',
     narrative:
       'A UI/UX engineering case study aimed at reducing occupational hazards on construction sites. Integrates self-service daily digital attendance with mandatory Personal Protective Equipment (PPE/K3) verification checklists prior to site gate clearance, built on a tested Figma design token system.',
-    image: '/images/kerti-kawista.png',
+    image: '/images/kerti-2.png',
+    gallery: [
+      '/images/kerti-2.png',
+      '/images/kerti-3.png',
+      '/images/kerti-1.png',
+      '/images/kerti.png',
+      '/images/kerti-4.png',
+    ],
     stack: ['Figma', 'Design Systems', 'Design Tokens', 'User Research', 'Usability Testing'],
     links: [
       { label: 'Figma Prototype', href: 'https://www.figma.com/design/x7vS92n5lFw6bLzX90o1vK/Kerti-Kawista-Safety' },
@@ -196,7 +219,8 @@ export const projects: Project[] = [
       'Open-source public information portal for local village administration. Provides official aid disbursement announcements, community activity schedules, public letters, and structured apparatus directories.',
     narrative:
       'A mobile-friendly public community web portal engineered to ensure administrative transparency for village governance, aid disbursement announcements, community schedules, and hierarchical official staff directories managed via role-based authorization.',
-    image: '/images/project-1.png',
+    image: '/images/comdess.png',
+    gallery: ['/images/comdess.png'],
     stack: ['Laravel', 'PHP', 'MySQL', 'Tailwind CSS', 'Spatie Permission', 'Git'],
     links: [
       { label: 'GitHub Repo', href: 'https://github.com/AlvianPh/comdess' },

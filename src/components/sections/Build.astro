@@ -33,6 +33,7 @@ interface EnrichedProject {
   description: string;
   narrative: string;
   image: string;
+  gallery?: string[];
   stack: string[];
   links: { label: string; href: string }[];
   stickyMeta: {
@@ -59,6 +60,7 @@ const enrichedProjects: EnrichedProject[] = activeProjects.map((p, index) => {
     description: p.description,
     narrative: p.narrative || p.description,
     image: p.image,
+    gallery: p.gallery && p.gallery.length > 0 ? p.gallery : [p.image],
     stack: p.stack,
     links: p.links,
     stickyMeta: p.stickyMeta || {
@@ -484,14 +486,17 @@ for (let i = 0; i < enrichedProjects.length; i += 2) {
         <span class="tape tape-top-left" style="--tape-color: #3b82f6;" aria-hidden="true"></span>
         <span class="tape tape-top-right" style="--tape-color: #f59e0b; top: auto; bottom: -0.6rem; right: -0.6rem;" aria-hidden="true"></span>
 
-        <!-- Dynamic Device Mockup Image -->
-        <div id="dossier-image-container" class="relative max-w-full flex justify-center py-4">
+        <!-- Dynamic Device Mockup Image & Gallery Strip -->
+        <div id="dossier-image-container" class="relative max-w-full flex flex-col items-center justify-center py-4">
           <img
             id="dossier-image"
             src=""
             alt=""
-            class="max-h-96 sm:max-h-[440px] w-auto object-contain rounded-lg drop-shadow-2xl"
+            class="max-h-96 sm:max-h-[440px] w-auto object-contain rounded-lg drop-shadow-2xl transition-all duration-200"
           />
+          <div id="dossier-gallery-container" class="flex flex-wrap items-center justify-center gap-2 mt-4 pt-2 border-t border-line/40 w-full max-w-md">
+            <!-- Dynamically populated thumbnail gallery -->
+          </div>
         </div>
       </div>
 
@@ -618,10 +623,38 @@ for (let i = 0; i < enrichedProjects.length; i += 2) {
       if (purposeEl) purposeEl.textContent = p.purpose || p.description;
       if (narrativeEl) narrativeEl.textContent = p.narrative || p.description;
 
-      // Populate Image
+      // Populate Image & Gallery
       if (imgEl) {
         imgEl.src = p.image;
         imgEl.alt = `Screenshot of ${p.name}`;
+      }
+
+      const galleryContainerEl = document.getElementById('dossier-gallery-container');
+      if (galleryContainerEl) {
+        galleryContainerEl.innerHTML = '';
+        const galleryList = Array.isArray(p.gallery) && p.gallery.length > 1 ? p.gallery : [];
+        if (galleryList.length > 1) {
+          galleryList.forEach((gSrc: string, gIdx: number) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            const isActive = gSrc === p.image;
+            btn.className = `h-12 w-12 rounded-md border-2 p-0.5 transition-all overflow-hidden cursor-pointer bg-paper ${
+              isActive ? 'border-blue-ink ring-2 ring-blue-ink/30 scale-105' : 'border-line/60 opacity-60 hover:opacity-100 hover:border-line'
+            }`;
+            btn.title = `Screenshot ${gIdx + 1}`;
+            btn.innerHTML = `<img src="${gSrc}" alt="Thumbnail ${gIdx + 1}" class="h-full w-full object-cover object-top rounded-xs" />`;
+            btn.addEventListener('click', () => {
+              if (imgEl) {
+                imgEl.src = gSrc;
+              }
+              galleryContainerEl.querySelectorAll('button').forEach((b) => {
+                b.className = 'h-12 w-12 rounded-md border-2 p-0.5 transition-all overflow-hidden cursor-pointer bg-paper border-line/60 opacity-60 hover:opacity-100 hover:border-line';
+              });
+              btn.className = 'h-12 w-12 rounded-md border-2 p-0.5 transition-all overflow-hidden cursor-pointer bg-paper border-blue-ink ring-2 ring-blue-ink/30 scale-105';
+            });
+            galleryContainerEl.appendChild(btn);
+          });
+        }
       }
 
       // Populate Sticky Notes
