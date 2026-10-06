@@ -1,0 +1,111 @@
+---
+/** Footer: nama, tahun, dan link sosial yang SUDAH diisi (placeholder disembunyikan). */
+import Container from './Container.astro';
+import { portfolio } from '@/data/portfolio';
+import { isFilled } from '@/lib/placeholder';
+
+const { profile, contact } = portfolio;
+const year = new Date().getFullYear();
+const links = [
+  ...(isFilled(contact.email) ? [{ label: 'Email', href: `mailto:${contact.email}` }] : []),
+  ...contact.links.filter((l) => isFilled(l.href) && isFilled(l.label)),
+];
+---
+
+<footer class="border-t border-line py-10 text-sm text-ink-soft">
+  <Container class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+    <div class="space-y-1">
+      <div class="flex items-center gap-2">
+        <p class="font-semibold text-ink">{profile.name}</p>
+        <span class="text-xs text-ink-soft">·</span>
+        <span class="font-mono text-xs text-green-ink font-bold">● Available</span>
+      </div>
+      <p>© {year} {profile.name}. All rights reserved.</p>
+      <p class="font-hand text-base text-blue-ink">software engineer · mobile & web · applied ai</p>
+      
+      <!-- Developer personal fuel note -->
+      <p class="font-mono text-[11px] text-ink-soft pt-1">
+        Fueled by Kopi Tubruk & Lofi ☕🎧 · Flow State & Aceh Gayo V60 ✦ · late-game Dota 2 turnarounds 🎮
+      </p>
+    </div>
+
+    <!-- Subtle scrapbook coffee ring mark in footer corner -->
+    <div class="coffee-ring hidden sm:block -bottom-6 -left-6 w-20 h-20 opacity-35" aria-hidden="true"></div>
+
+    <!-- Animated Footer Cat Mascot & Navigation -->
+    <div class="flex flex-col sm:items-end gap-3">
+      <div class="flex items-center gap-3">
+        <nav aria-label="Footer" class="flex flex-wrap items-center gap-x-5 gap-y-1">
+          {links.map((link) => (
+            <a
+              href={link.href}
+              class="inline-flex min-h-11 items-center underline-offset-4 hover:text-ink hover:underline"
+              target={link.href.startsWith('http') ? '_blank' : undefined}
+              rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            >
+              {link.label}
+              {link.href.startsWith('http') && <span class="sr-only">(opens in a new tab)</span>}
+            </a>
+          ))}
+          <button
+            id="replay-dossier-btn"
+            type="button"
+            class="inline-flex min-h-11 items-center gap-1 font-mono text-xs text-ink-soft hover:text-green-ink transition-colors cursor-pointer"
+            title="Replay the opening Dossier splash animation"
+          >
+            <span>↺ Replay Intro</span>
+          </button>
+          <a href="#top" class="inline-flex min-h-11 items-center gap-1 underline-offset-4 hover:text-ink hover:underline font-mono text-xs font-bold text-blue-ink">
+            Back to top <span aria-hidden="true">↑</span>
+          </a>
+        </nav>
+
+        <!-- Sitting Cat with Wagging Tail -->
+        <div class="relative group cursor-pointer shrink-0" title="Thanks for visiting! 🐾">
+          <!-- Speech Bubble on hover -->
+          <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none absolute -top-8 right-0 whitespace-nowrap rounded-md border border-line bg-paper-light px-2 py-0.5 font-hand text-xs font-bold text-ink shadow-xs">
+            <span>have an awesome day! 🐾</span>
+          </div>
+          <svg class="h-10 w-12 select-none drop-shadow-xs" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Cat body -->
+            <ellipse cx="25" cy="34" rx="14" ry="12" fill="#ffffff" stroke="#231f20" stroke-width="2" />
+            <ellipse cx="25" cy="34" rx="13" ry="11" fill="#FFFDF8" />
+            <!-- Cat head -->
+            <circle cx="25" cy="20" r="11" fill="#ffffff" stroke="#231f20" stroke-width="2" />
+            <circle cx="25" cy="20" r="10" fill="#FFFDF8" />
+            <!-- Left ear -->
+            <polygon points="17,13 22,7 23,14" fill="#FCA5A5" stroke="#231f20" stroke-width="1.5" />
+            <!-- Right ear -->
+            <polygon points="33,13 28,7 27,14" fill="#FCA5A5" stroke="#231f20" stroke-width="1.5" />
+            <!-- Eyes -->
+            <circle cx="21" cy="19" r="1.5" fill="#231f20" />
+            <circle cx="29" cy="19" r="1.5" fill="#231f20" />
+            <!-- Mouth -->
+            <path d="M23 23 Q25 25 27 23" stroke="#231f20" stroke-width="1.2" stroke-linecap="round" fill="none" />
+            <!-- Whiskers -->
+            <line x1="13" y1="20" x2="18" y2="21" stroke="#231f20" stroke-width="1.2" stroke-linecap="round" />
+            <line x1="32" y1="21" x2="37" y2="20" stroke="#231f20" stroke-width="1.2" stroke-linecap="round" />
+            <!-- Wagging Tail -->
+            <path class="cat-tail" d="M38 38 C46 36, 48 24, 44 20" stroke="#231f20" stroke-width="2.5" stroke-linecap="round" fill="none" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </Container>
+</footer>
+
+<script>
+  function setupReplayButton() {
+    const btn = document.getElementById('replay-dossier-btn');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        sessionStorage.removeItem('aph_dossier_splash_seen');
+        const url = new URL(window.location.href);
+        url.searchParams.set('splash', '1');
+        window.location.href = url.toString();
+      });
+    }
+  }
+  setupReplayButton();
+  document.addEventListener('astro:page-load', setupReplayButton);
+</script>

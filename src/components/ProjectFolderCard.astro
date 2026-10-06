@@ -1,0 +1,95 @@
+---
+/**
+ * ProjectFolderCard — Kartu Proyek bergaya Berkas Map / Manila Folder:
+ * - Tab folder menonjol di atas (📁 FOLDER #01)
+ * - Screenshot mockup berselotip seperti diselipkan di dalam folder
+ * - Metadata stiker peran & teknologi
+ * - Klik membuka animasi Dossier Folder Modal
+ */
+import type { Project } from '@/data/types';
+import DeviceFrame from './ui/DeviceFrame.astro';
+import Tag from './ui/Tag.astro';
+
+interface Props {
+  project: Project;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const number = String(index + 1).padStart(2, '0');
+const isDesktop = project.category === 'web' || project.stack.some((s) => s.toLowerCase().includes('web'));
+---
+
+<article
+  class="folder-card group relative flex h-full flex-col cursor-pointer transition-all pt-5"
+  data-open-dossier={index}
+  tabindex="0"
+  role="button"
+  aria-label={`Buka berkas proyek ${project.name}`}
+>
+  <!-- Folder Tab menonjol di kiri atas -->
+  <div class="folder-tab flex items-center gap-1.5 text-ink-soft group-hover:text-blue-ink">
+    <span>📁</span>
+    <span>FOLDER #{number}</span>
+  </div>
+
+  <!-- Folder Pocket: Area Preview Screenshot Berselotip -->
+  <div class="desk relative flex items-center justify-center border-b border-line px-4 py-6 sm:px-6 overflow-hidden">
+    <!-- Washi Tape di pojok preview -->
+    <span class="tape tape-top-left" style="--tape-color: var(--color-blue);" aria-hidden="true"></span>
+    
+    <DeviceFrame
+      src={project.image}
+      alt={`Screenshot ${project.name}`}
+      type={isDesktop ? 'desktop' : 'mobile'}
+      class={isDesktop ? 'w-full max-w-[270px] sm:max-w-[300px]' : 'w-28 sm:w-32'}
+    />
+  </div>
+
+  <!-- Folder Body Content -->
+  <div class="flex flex-1 flex-col justify-between p-5 sm:p-6 space-y-4">
+    <div class="space-y-2.5">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <span class="rounded bg-paper px-2 py-0.5 font-mono text-[11px] font-semibold text-blue-ink border border-line">
+          {project.context}
+        </span>
+        {project.featured && (
+          <span class="rounded bg-blue-tint px-1.5 py-0.5 font-mono text-[10px] font-bold text-blue-ink uppercase">
+            ★ Flagship
+          </span>
+        )}
+      </div>
+
+      <h3 class="text-xl font-bold tracking-tight text-ink group-hover:text-blue-ink transition-colors sm:text-2xl">
+        {project.name}
+      </h3>
+
+      <p class="text-xs sm:text-sm text-ink-soft leading-relaxed line-clamp-3">
+        {project.purpose || project.description}
+      </p>
+    </div>
+
+    <!-- Tech Stack Mini Stickers -->
+    <div class="space-y-3 pt-2 border-t border-dashed border-line">
+      <div class="flex flex-wrap gap-1.5">
+        {project.stack.slice(0, 4).map((tech) => (
+          <Tag>{tech}</Tag>
+        ))}
+        {project.stack.length > 4 && (
+          <span class="font-mono text-xs text-ink-soft">+{project.stack.length - 4}</span>
+        )}
+      </div>
+
+      <!-- Action Prompt: Buka Berkas -->
+      <div class="flex items-center justify-between pt-1">
+        <span class="inline-flex items-center gap-1.5 font-mono text-xs font-bold text-blue-ink underline decoration-blue-ink/40 underline-offset-4 group-hover:decoration-blue-ink">
+          <span>Buka Berkas Folder</span>
+          <span aria-hidden="true">↗</span>
+        </span>
+        <span class="font-mono text-[11px] text-ink-soft group-hover:translate-x-0.5 transition-transform">
+          Lihat Detail →
+        </span>
+      </div>
+    </div>
+  </div>
+</article>

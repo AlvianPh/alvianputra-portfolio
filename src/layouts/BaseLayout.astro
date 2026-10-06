@@ -1,0 +1,64 @@
+---
+/**
+ * Layout dasar: <head>, font, global styles, header & footer.
+ * Semua meta diambil dari src/data/portfolio.ts.
+ */
+import '@fontsource-variable/inter';
+import '@fontsource/caveat/600.css';
+import '@/styles/global.css';
+
+import SiteHeader from '@/components/SiteHeader.astro';
+import SiteFooter from '@/components/SiteFooter.astro';
+import SplashScreen from '@/components/ui/SplashScreen.astro';
+import { portfolio } from '@/data/portfolio';
+import { isFilled } from '@/lib/placeholder';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** true = halaman tidak diindeks mesin pencari (mis. /styleguide). */
+  noindex?: boolean;
+}
+
+const { site } = portfolio;
+const { title = site.title, description = site.description, noindex = false } = Astro.props;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+// og:image butuh URL absolut → hanya dipasang jika gambar sudah diisi DAN `site` di astro.config.mjs sudah diset.
+const ogImage = isFilled(site.ogImage) && Astro.site ? new URL(site.ogImage, Astro.site).href : undefined;
+---
+
+<!doctype html>
+<html lang={site.lang} class="splash-active">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#171412" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={portfolio.profile.name} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+  </head>
+  <body class="splash-active">
+    <SplashScreen />
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
+    >
+      Skip to content
+    </a>
+    <SiteHeader />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

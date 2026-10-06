@@ -1,0 +1,16 @@
+---
+/** Render string dengan dukungan ==stabilo== dari portfolio.ts. */
+import Highlight from './ui/Highlight.astro';
+import { parseHighlights } from '@/lib/markup';
+import type { Accent } from '@/lib/ui';
+
+interface Props {
+  text: string;
+  color?: Accent;
+}
+
+const { text, color = 'orange' } = Astro.props;
+const segments = parseHighlights(text);
+---
+
+{segments.map((s) => (s.highlight ? <Highlight color={color}>{s.text}</Highlight> : s.text))}

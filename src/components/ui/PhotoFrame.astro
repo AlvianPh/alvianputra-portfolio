@@ -1,0 +1,62 @@
+---
+/**
+ * Bingkai foto/screenshot ala polaroid dengan zoom halus saat hover.
+ * Jika `src` masih placeholder (mis. "[PROJECT IMAGE]"), tampil kotak placeholder.
+ */
+import Tape from './Tape.astro';
+import { isPlaceholder } from '@/lib/placeholder';
+import { tiltStyle, type Tilt, type AccentOrNeutral } from '@/lib/ui';
+
+interface Props {
+  src: string;
+  alt: string;
+  caption?: string;
+  /** Rasio aspek CSS, mis. "16 / 10" atau "9 / 16" untuk screenshot mobile. */
+  ratio?: string;
+  tilt?: Tilt;
+  tape?: 'top-center' | 'top-left' | 'top-right';
+  tapeColor?: AccentOrNeutral;
+  width?: number;
+  height?: number;
+  class?: string;
+}
+
+const {
+  src,
+  alt,
+  caption,
+  ratio = '16 / 10',
+  tilt = 'none',
+  tape,
+  tapeColor = 'neutral',
+  width,
+  height,
+  class: className,
+} = Astro.props;
+
+const missing = isPlaceholder(src);
+---
+
+<figure class:list={['frame paper tilt lift p-2 pb-3', className]} style={tiltStyle(tilt)}>
+  {tape && <Tape position={tape} color={tapeColor} />}
+  <div class="overflow-hidden rounded-[2px] bg-paper-dark" style={`aspect-ratio: ${ratio};`}>
+    {
+      missing ? (
+        <div class="flex h-full w-full items-center justify-center border border-dashed border-ink-soft/40 p-4 text-center font-mono text-xs text-ink-soft">
+          {src || '[IMAGE]'}
+        </div>
+      ) : (
+        <img
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          loading="lazy"
+          decoding="async"
+          class="frame-img h-full w-full object-cover"
+        />
+      )
+    }
+  </div>
+  {caption && <figcaption class="mt-2 px-1 font-hand text-lg leading-tight text-ink-soft">{caption}</figcaption>}
+</figure>

@@ -1,0 +1,31 @@
+---
+/**
+ * Halaman Utama Portfolio — Alvian Putra Hardiadi
+ * Flow & Hierarki Desain Terinspirasi Referensi Notebook/Scrapbook:
+ * 1. Hero (Nama Besar di Tengah, Floating Sticky Pills, Headline, Proof Pillars)
+ * 2. About Me ("what's up" Memo Card, Polaroid Photo, Sticker Pills)
+ * 3. Selected Projects ("Featured Works" Dossier: Arthawira + Secondary + Supporting)
+ * 4. Engineering Capabilities (Domain Toolboxes, Backend, Workflow & Research Differentiator)
+ * 5. Professional Experience (Teacher's Field Logbook at SMK Koperasi)
+ * 6. Applied AI & NLP Research (IndoBERT & Active Learning Lab Dossier)
+ * 7. Contact ("Let's Talk" Memo Pad & Direct Channels)
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/sections/Hero.astro';
+import About from '@/components/sections/About.astro';
+import Build from '@/components/sections/Build.astro';
+import Skills from '@/components/sections/Skills.astro';
+import Teaching from '@/components/sections/Teaching.astro';
+import Research from '@/components/sections/Research.astro';
+import Contact from '@/components/sections/Contact.astro';
+---
+
+<BaseLayout>
+  <Hero />
+  <About />
+  <Build />
+  <Skills />
+  <Teaching />
+  <Research />
+  <Contact />
+</BaseLayout>

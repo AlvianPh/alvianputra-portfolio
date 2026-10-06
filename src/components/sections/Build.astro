@@ -1,0 +1,773 @@
+---
+/**
+ * Selected Works — Section 02 (Featured Works)
+ * Scrapbook Interlocking Folder Deck & Engineering Dossier:
+ * - Terinspirasi langsung dari Gambar 5, 6, 7 & 8 referensi:
+ *   1. Tab folder interaktif di atas (FOLDER 01 & 02, 03 & 04, 05 & 06 serta tab individual 01-06).
+ *   2. Dua map folder bertumpuk saling mengunci (Gambar 6):
+ *      - Map Atas (Dark Charcoal #1e1e1e) dengan mockup berselotip & tombol 'VIEW FULL DOSSIER →'
+ *      - Map Bawah (Warm Manila Gold #f5d688) dengan tab menonjol, mockup berselotip & tombol 'VIEW FULL DOSSIER →'
+ *   3. Saat diklik, berkas membuka ke Lembar Spesifikasi Rekayasa Penuh (Gambar 7 & 8):
+ *      - Judul brutalist masif, 4 sticky note pastel (Role, Timeline, Architecture, Status)
+ *      - Device frame berselotip, catatan tangan 'the results', metrik teknis, checklist sorotan rekayasa, stack, & link repo/demo.
+ */
+import Section from '@/components/Section.astro';
+import DeviceFrame from '@/components/ui/DeviceFrame.astro';
+import HandNote from '@/components/ui/HandNote.astro';
+import Tag from '@/components/ui/Tag.astro';
+import { portfolio } from '@/data/portfolio';
+import { projects } from '@/data/projects';
+
+// Filter active projects (hide drafts)
+const activeProjects = projects.filter((p) => !p.isDraft);
+
+// Augmented project metadata matching Gambar 6, 7 & 8
+interface EnrichedProject {
+  id: number;
+  numStr: string;
+  name: string;
+  context: string;
+  category: 'mobile' | 'web';
+  date: string;
+  purpose: string;
+  description: string;
+  narrative: string;
+  image: string;
+  stack: string[];
+  links: { label: string; href: string }[];
+  stickyMeta: {
+    role: string;
+    timeline: string;
+    arch: string;
+    status: string;
+  };
+  metrics: { val: string; label: string }[];
+  highlights: string[];
+}
+
+const enrichedProjects: EnrichedProject[] = activeProjects.map((p, index) => {
+  const num = index + 1;
+  const numStr = num < 10 ? `0${num}` : `${num}`;
+  return {
+    id: index,
+    numStr,
+    name: p.name,
+    context: p.context,
+    category: p.category,
+    date: p.date,
+    purpose: p.purpose || p.description,
+    description: p.description,
+    narrative: p.narrative || p.description,
+    image: p.image,
+    stack: p.stack,
+    links: p.links,
+    stickyMeta: p.stickyMeta || {
+      role: 'Software Engineer',
+      timeline: p.date,
+      arch: p.stack.slice(0, 2).join(' + '),
+      status: 'Shipped',
+    },
+    metrics: p.metrics || [],
+    highlights: p.highlights || [],
+  };
+});
+
+// Auto-chunk into pairs of 2 for interlocking layout
+interface ProjectPair {
+  pairId: number;
+  label: string;
+  topIndex: number;
+  bottomIndex: number;
+}
+
+const projectPairs: ProjectPair[] = [];
+for (let i = 0; i < enrichedProjects.length; i += 2) {
+  const pairId = Math.floor(i / 2);
+  const topProj = enrichedProjects[i];
+  const hasBottom = i + 1 < enrichedProjects.length;
+  const bottomProj = hasBottom ? enrichedProjects[i + 1] : enrichedProjects[i];
+
+  const pairNumStr = pairId + 1 < 10 ? `0${pairId + 1}` : `${pairId + 1}`;
+  const topShort = topProj.name.split(' ')[0];
+  const bottomShort = hasBottom ? bottomProj.name.split(' ')[0] : 'Dossier';
+  const label = `${pairNumStr} · ${topShort} & ${bottomShort}`;
+
+  projectPairs.push({
+    pairId,
+    label,
+    topIndex: i,
+    bottomIndex: hasBottom ? i + 1 : i,
+  });
+}
+---
+
+<div id="build" class="sr-only" aria-hidden="true"></div>
+
+<Section
+  id="projects"
+  title="Featured Works"
+  index="02"
+  label="project dossiers"
+  labelColor="blue"
+  class="border-t border-line"
+>
+  <!-- Desk Header Narrative (Exact Reference Panel 5 Inspiration) -->
+  <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <div class="max-w-2xl space-y-1.5">
+      <div class="flex items-center gap-2">
+        <span class="font-mono text-xs font-bold tracking-widest text-blue-ink uppercase">Engineering Files & Dossiers</span>
+        <span class="text-ink-soft">·</span>
+        <HandNote color="blue" size="sm">click any folder to inspect complete technical dossier</HandNote>
+      </div>
+      <p class="text-base sm:text-lg text-ink-soft leading-relaxed">
+        {portfolio.build.intro}
+      </p>
+    </div>
+
+    <!-- Quick Focus Tag Strip -->
+    <div class="flex flex-wrap gap-1.5 shrink-0">
+      {portfolio.build.focus.map((item) => (
+        <Tag>{item}</Tag>
+      ))}
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TOP TAB SELECTOR (Exact Reference Panel 6 Top Bar)
+       Allows visitors to select folder pairs 01-02, 03-04, 05-06
+       or jump directly to files 01 through 06.
+       ============================================================ -->
+  <div class="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-line pb-3">
+    <!-- Folder Pairs Tabs -->
+    <div class="flex flex-wrap items-center gap-2" role="tablist" aria-label="Select Project Folder">
+      {projectPairs.map((pair, idx) => (
+        <button
+          type="button"
+          class={`folder-tab-btn ${idx === 0 ? 'active' : ''}`}
+          data-pair-tab={idx}
+          role="tab"
+          aria-selected={idx === 0 ? 'true' : 'false'}
+          aria-controls={`pair-deck-${idx}`}
+        >
+          <span class="inline-block h-2 w-2 rounded-full bg-blue-ink" aria-hidden="true"></span>
+          <span>FOLDER {pair.label}</span>
+        </button>
+      ))}
+    </div>
+
+    <!-- Quick Single Project Jumper Links -->
+    <div class="flex items-center gap-1.5 overflow-x-auto text-xs font-mono">
+      <span class="text-ink-soft uppercase mr-1">Quick Jump:</span>
+      {enrichedProjects.map((p, idx) => (
+        <button
+          type="button"
+          class="rounded px-2 py-0.5 text-ink-soft hover:text-blue-ink hover:bg-paper-dark transition-colors cursor-pointer border border-transparent hover:border-line"
+          data-open-dossier={idx}
+          title={`Open dossier for ${p.name}`}
+        >
+          #{p.numStr}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <!-- ============================================================
+       INTERLOCKING TWO-COLOR FOLDER DECKS (Exact Reference Panel 6)
+       - Top Flap: Dark Charcoal (#1e1e1e)
+       - Bottom Flap: Warm Manila Gold (#f5d688) with Protruding Tab
+       ============================================================ -->
+  <div id="folder-decks-container" class="relative">
+    {projectPairs.map((pair, pIdx) => {
+      const topProj = enrichedProjects[pair.topIndex];
+      const bottomProj = enrichedProjects[pair.bottomIndex];
+      const isDesktopTop = topProj.category === 'web';
+      const isDesktopBottom = bottomProj.category === 'web';
+
+      return (
+        <div
+          id={`pair-deck-${pIdx}`}
+          class={`pair-deck space-y-0 transition-opacity duration-300 ${pIdx === 0 ? 'block' : 'hidden'}`}
+          data-deck-index={pIdx}
+        >
+          <!-- TOP FOLDER FLAP (Dark Charcoal #1e1e1e) -->
+          <article
+            class="folder-flap-top p-6 sm:p-8 lg:p-10 cursor-pointer group"
+            data-open-dossier={topProj.id}
+            tabindex="0"
+            role="button"
+            aria-label={`Open technical dossier for project #${topProj.numStr} ${topProj.name}`}
+          >
+            <!-- Top Folder Meta Bar -->
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-6 border-b border-white/10 pb-4">
+              <div class="flex items-center gap-2.5">
+                <span class="rounded bg-blue-500/20 px-2.5 py-0.5 font-mono text-xs font-bold text-blue-300 border border-blue-400/30 uppercase tracking-wider">
+                  • PROJECT #{topProj.numStr}
+                </span>
+                <span class="font-mono text-xs text-paper-light/60 tracking-wider">
+                  • {topProj.date}
+                </span>
+              </div>
+              <span class="rounded bg-white/10 px-2.5 py-0.5 font-mono text-xs text-paper-light/80">
+                {topProj.context}
+              </span>
+            </div>
+
+            <!-- Content Grid: Left Text + Right Mockup with Washi Tape -->
+            <div class="grid items-center gap-8 lg:grid-cols-12">
+              <!-- Left Column: Title, Subtitle & Action Link -->
+              <div class="lg:col-span-7 space-y-5">
+                <div>
+                  <h3 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-paper-light group-hover:text-blue-300 transition-colors">
+                    {topProj.name}
+                  </h3>
+                  <p class="mt-2 text-sm sm:text-base text-paper-light/80 leading-relaxed font-sans max-w-xl">
+                    {topProj.purpose || topProj.description}
+                  </p>
+                </div>
+
+                <!-- Tech Stack Pills on Dark -->
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  {topProj.stack.slice(0, 5).map((t) => (
+                    <span class="rounded border border-white/15 bg-white/5 px-2 py-0.5 font-mono text-xs text-paper-light/75">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                <!-- Prominent Action Button -->
+                <div class="pt-3">
+                  <span class="inline-flex items-center gap-2 rounded border border-white/30 bg-white/10 px-4 py-2 font-mono text-xs font-bold text-paper-light shadow-sm group-hover:bg-white group-hover:text-ink transition-all">
+                    <span>VIEW FULL DOSSIER</span>
+                    <span aria-hidden="true">→</span>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Right Column: Device Frame with Washi Tape at Opposite Corners -->
+              <div class="lg:col-span-5 relative flex items-center justify-center py-4">
+                <!-- Washi Tape -->
+                <span class="tape tape-top-left" style="--tape-color: #60a5fa;" aria-hidden="true"></span>
+                <span class="tape tape-top-right" style="--tape-color: #f59e0b; top: auto; bottom: -0.5rem; right: -0.5rem;" aria-hidden="true"></span>
+
+                <div class="transform group-hover:scale-[1.02] transition-transform duration-300">
+                  <DeviceFrame
+                    src={topProj.image}
+                    alt={`Screenshot of ${topProj.name}`}
+                    type={isDesktopTop ? 'desktop' : 'mobile'}
+                    class={isDesktopTop ? 'w-full max-w-[340px] drop-shadow-2xl' : 'w-36 sm:w-44 drop-shadow-2xl'}
+                  />
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- BOTTOM FOLDER FLAP (Warm Manila Gold #f5d688 with Protruding Tab) -->
+          <article
+            class="folder-flap-bottom p-6 sm:p-8 lg:p-10 cursor-pointer group mt-0 relative"
+            data-open-dossier={bottomProj.id}
+            tabindex="0"
+            role="button"
+            aria-label={`Open technical dossier for project #${bottomProj.numStr} ${bottomProj.name}`}
+          >
+            <!-- Protruding Manila Tab Sticking Above Flap -->
+            <div class="folder-protruding-tab flex items-center gap-2">
+              <span>📁</span>
+              <span>PROJECT #{bottomProj.numStr} · {bottomProj.name.toUpperCase()}</span>
+            </div>
+
+            <!-- Top Folder Meta Bar -->
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-6 border-b border-ink/15 pb-4 pt-2">
+              <div class="flex items-center gap-2.5">
+                <span class="rounded bg-ink/10 px-2.5 py-0.5 font-mono text-xs font-bold text-ink uppercase tracking-wider">
+                  • PROJECT #{bottomProj.numStr}
+                </span>
+                <span class="font-mono text-xs text-ink/75 tracking-wider">
+                  • {bottomProj.date}
+                </span>
+              </div>
+              <span class="rounded bg-ink/10 px-2.5 py-0.5 font-mono text-xs font-semibold text-ink">
+                {bottomProj.context}
+              </span>
+            </div>
+
+            <!-- Content Grid: Left Text + Right Mockup with Washi Tape -->
+            <div class="grid items-center gap-8 lg:grid-cols-12">
+              <!-- Left Column: Title, Subtitle & Action Link -->
+              <div class="lg:col-span-7 space-y-5">
+                <div>
+                  <h3 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-ink group-hover:text-blue-ink transition-colors">
+                    {bottomProj.name}
+                  </h3>
+                  <p class="mt-2 text-sm sm:text-base text-ink/80 leading-relaxed font-sans max-w-xl">
+                    {bottomProj.purpose || bottomProj.description}
+                  </p>
+                </div>
+
+                <!-- Tech Stack Pills on Yellow -->
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  {bottomProj.stack.slice(0, 5).map((t) => (
+                    <span class="rounded border border-ink/20 bg-ink/5 px-2 py-0.5 font-mono text-xs font-medium text-ink">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                <!-- Prominent Action Button -->
+                <div class="pt-3">
+                  <span class="inline-flex items-center gap-2 rounded border border-ink bg-ink px-4 py-2 font-mono text-xs font-bold text-paper-light shadow-sm group-hover:bg-blue-ink group-hover:border-blue-ink transition-all">
+                    <span>VIEW FULL DOSSIER</span>
+                    <span aria-hidden="true">→</span>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Right Column: Device Frame with Washi Tape at Opposite Corners -->
+              <div class="lg:col-span-5 relative flex items-center justify-center py-4">
+                <!-- Washi Tape -->
+                <span class="tape tape-top-left" style="--tape-color: #3b82f6;" aria-hidden="true"></span>
+                <span class="tape tape-top-right" style="--tape-color: #ef4444; top: auto; bottom: -0.5rem; right: -0.5rem;" aria-hidden="true"></span>
+
+                <div class="transform group-hover:scale-[1.02] transition-transform duration-300">
+                  <DeviceFrame
+                    src={bottomProj.image}
+                    alt={`Screenshot of ${bottomProj.name}`}
+                    type={isDesktopBottom ? 'desktop' : 'mobile'}
+                    class={isDesktopBottom ? 'w-full max-w-[340px] drop-shadow-2xl' : 'w-36 sm:w-44 drop-shadow-2xl'}
+                  />
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      );
+    })}
+  </div>
+
+  <!-- Instruction Hint -->
+  <div class="mt-4 text-center">
+    <p class="font-mono text-xs text-ink-soft">
+      💡 Tip: Click any folder flap above or the numbered tabs <span class="font-bold text-ink">#01 through #06</span> to open the full technical specification dossier.
+    </p>
+  </div>
+</Section>
+
+<!-- ============================================================
+     EXPANSIVE CASE STUDY DOSSIER MODAL (Exact Reference Panel 7 & 8)
+     Unfolds smoothly when any project card or tab is clicked.
+     ============================================================ -->
+<dialog id="project-dossier-modal" class="dossier-dialog" aria-labelledby="dossier-title">
+  <!-- Manila Folder Unfold Paper Wrapper -->
+  <div class="relative rounded-xl border-2 border-line bg-paper-light p-6 sm:p-10 md:p-12 shadow-2xl overflow-hidden max-h-[92vh] overflow-y-auto">
+    
+    <!-- Top Dossier Folder Header Strip -->
+    <div class="flex flex-wrap items-center justify-between gap-4 border-b-2 border-line pb-5 mb-8">
+      <div class="flex items-center gap-3">
+        <span class="flex h-8 w-8 items-center justify-center rounded border border-blue-ink/30 bg-blue-tint font-mono text-sm text-blue-ink shadow-2xs">
+          📁
+        </span>
+        <div>
+          <div class="flex items-center gap-2">
+            <span id="dossier-folder-id" class="font-mono text-xs font-bold tracking-widest text-blue-ink uppercase">
+              ENGINEERING DOSSIER #01
+            </span>
+            <span id="dossier-date" class="font-mono text-xs text-ink-soft">
+              • 2026 — PRESENT
+            </span>
+          </div>
+          <span id="dossier-context-tag" class="font-mono text-xs text-ink-soft">
+            Mobile App · Architecture
+          </span>
+        </div>
+      </div>
+
+      <!-- Controls: Prev, Next, Close -->
+      <div class="flex items-center gap-2">
+        <button
+          id="dossier-prev-btn"
+          type="button"
+          class="inline-flex min-h-9 items-center gap-1 rounded border border-line bg-paper px-3 py-1 font-mono text-xs font-bold text-ink shadow-2xs hover:bg-paper-dark transition-all cursor-pointer"
+          aria-label="Previous project dossier"
+        >
+          ← Prev
+        </button>
+        <button
+          id="dossier-next-btn"
+          type="button"
+          class="inline-flex min-h-9 items-center gap-1 rounded border border-line bg-paper px-3 py-1 font-mono text-xs font-bold text-ink shadow-2xs hover:bg-paper-dark transition-all cursor-pointer"
+          aria-label="Next project dossier"
+        >
+          Next →
+        </button>
+        <button
+          id="close-dossier-btn"
+          type="button"
+          class="inline-flex min-h-9 items-center gap-1.5 rounded border border-ink/30 bg-ink px-3.5 py-1 font-mono text-xs font-bold text-paper-light shadow-2xs hover:bg-blue-ink transition-all cursor-pointer"
+          aria-label="Close project dossier"
+        >
+          <span>✕</span>
+          <span>Close (Esc)</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Dossier Main Presentation Body -->
+    <div class="space-y-10">
+
+      <!-- ==========================================
+           DOSSIER HERO SECTION (Reference Panel 7)
+           Title, Subtitle & 4 Pastel Sticky Notes
+           ========================================== -->
+      <div class="grid gap-8 lg:grid-cols-12 items-start">
+        
+        <!-- Left Column: Title, Subtitle, Tags -->
+        <div class="lg:col-span-7 space-y-4">
+          <span id="dossier-eyebrow-date" class="font-mono text-xs font-bold tracking-wider text-blue-ink uppercase">
+            • 2026 — PRESENT
+          </span>
+
+          <h2 id="dossier-title" class="text-3xl sm:text-5xl font-black tracking-tight text-ink uppercase">
+            ARTHAWIRA
+          </h2>
+
+          <p id="dossier-purpose" class="text-base sm:text-lg font-medium text-ink-soft leading-relaxed">
+            Smart personal finance companion mobile app with offline-first local architecture and AI forecasting.
+          </p>
+
+          <!-- Context Pill Tags -->
+          <div id="dossier-tags-container" class="flex flex-wrap gap-1.5 pt-2">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Right Column: 4 Pastel Sticky Notes (Exact Reference Panel 7) -->
+        <div class="lg:col-span-5 grid grid-cols-2 gap-3">
+          <!-- Note 1 (Pastel Blue): ROLE -->
+          <div class="pastel-sticky pastel-sticky-blue text-xs transform -rotate-1 shadow-xs">
+            <span class="block font-mono text-[10px] font-bold uppercase tracking-wider opacity-70">ROLE</span>
+            <span id="dossier-sticky-role" class="block font-mono text-xs font-bold mt-1 text-blue-900 leading-snug">
+              Lead Mobile Engineer
+            </span>
+          </div>
+
+          <!-- Note 2 (Pastel Yellow): TIMELINE -->
+          <div class="pastel-sticky pastel-sticky-yellow text-xs transform rotate-1 shadow-xs">
+            <span class="block font-mono text-[10px] font-bold uppercase tracking-wider opacity-70">TIMELINE</span>
+            <span id="dossier-sticky-timeline" class="block font-mono text-xs font-bold mt-1 text-amber-900 leading-snug">
+              Active Ongoing (Aug 2026 — Present)
+            </span>
+          </div>
+
+          <!-- Note 3 (Pastel Green): ARCHITECTURE -->
+          <div class="pastel-sticky pastel-sticky-green text-xs transform rotate-1 shadow-xs">
+            <span class="block font-mono text-[10px] font-bold uppercase tracking-wider opacity-70">ARCHITECTURE</span>
+            <span id="dossier-sticky-arch" class="block font-mono text-xs font-bold mt-1 text-emerald-900 leading-snug">
+              Offline-First SQLite
+            </span>
+          </div>
+
+          <!-- Note 4 (Pastel Pink): STATUS -->
+          <div class="pastel-sticky pastel-sticky-pink text-xs transform -rotate-1 shadow-xs">
+            <span class="block font-mono text-[10px] font-bold uppercase tracking-wider opacity-70">STATUS</span>
+            <span id="dossier-sticky-status" class="block font-mono text-xs font-bold mt-1 text-pink-900 leading-snug">
+              Active & Shipped
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           MAIN SHOWCASE FRAME (Reference Panel 7)
+           Desk Surface + Large Mockup + Washi Tape
+           ========================================== -->
+      <div class="desk relative flex items-center justify-center rounded-xl border border-line p-8 sm:p-12 shadow-inner overflow-hidden min-h-[300px] sm:min-h-[420px]">
+        <!-- Washi Tape on opposite corners -->
+        <span class="tape tape-top-left" style="--tape-color: #3b82f6;" aria-hidden="true"></span>
+        <span class="tape tape-top-right" style="--tape-color: #f59e0b; top: auto; bottom: -0.6rem; right: -0.6rem;" aria-hidden="true"></span>
+
+        <!-- Dynamic Device Mockup Image -->
+        <div id="dossier-image-container" class="relative max-w-full flex justify-center py-4">
+          <img
+            id="dossier-image"
+            src=""
+            alt=""
+            class="max-h-96 sm:max-h-[440px] w-auto object-contain rounded-lg drop-shadow-2xl"
+          />
+        </div>
+      </div>
+
+      <!-- ==========================================
+           ENGINEERING RESULTS & BREAKDOWN (Reference Panel 8)
+           'the results' script + Narrative + Metrics + Checklist
+           ========================================== -->
+      <div class="space-y-6 pt-2">
+        <div class="flex items-center gap-2">
+          <HandNote color="blue" size="lg">the results & engineering breakdown</HandNote>
+        </div>
+
+        <!-- Problem & Solution Narrative -->
+        <div class="rounded-lg border border-line bg-paper/60 p-5 sm:p-6">
+          <h4 class="font-mono text-xs font-bold tracking-wider text-ink-soft uppercase mb-2">
+            Architectural Problem & Engineering Solution:
+          </h4>
+          <p id="dossier-narrative" class="text-sm sm:text-base text-ink leading-relaxed">
+            Narrative description text.
+          </p>
+        </div>
+
+        <!-- 3 Metrics Stat Cards (Exact Reference Panel 8) -->
+        <div id="dossier-metrics-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <!-- Dynamically populated via JS -->
+        </div>
+
+        <!-- Engineering Highlights Checklist -->
+        <div class="rounded-lg border border-line bg-paper/60 p-5 sm:p-6">
+          <h4 class="font-mono text-xs font-bold tracking-wider text-ink-soft uppercase mb-3">
+            Key Technical Highlights & Implementation Details:
+          </h4>
+          <ul id="dossier-highlights-list" class="grid gap-2.5 sm:grid-cols-2 text-xs sm:text-sm text-ink">
+            <!-- Dynamically populated -->
+          </ul>
+        </div>
+
+        <!-- Tech Stack Tags -->
+        <div>
+          <h4 class="font-mono text-xs font-bold tracking-wider text-ink-soft uppercase mb-2">
+            Technologies & Tooling Ecosystem:
+          </h4>
+          <div id="dossier-stack-container" class="flex flex-wrap gap-1.5">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Action Links & Close Footer -->
+        <div class="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-dashed border-line">
+          <div id="dossier-links-container" class="flex flex-wrap gap-3">
+            <!-- Dynamically populated: GitHub, Figma, Live Demo -->
+          </div>
+
+          <button
+            type="button"
+            class="close-dossier-footer-btn inline-flex items-center gap-2 font-mono text-xs font-bold text-ink-soft hover:text-blue-ink transition-colors cursor-pointer"
+          >
+            <span>← Return to Project Deck</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</dialog>
+
+<!-- Client Data Store for Fast Offline / Instant Interaction -->
+<script id="dossier-data" type="application/json" set:html={JSON.stringify(enrichedProjects)} />
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const dialog = document.getElementById('project-dossier-modal') as HTMLDialogElement | null;
+    const closeBtn = document.getElementById('close-dossier-btn');
+    const closeFooterBtns = document.querySelectorAll('.close-dossier-footer-btn');
+    const prevBtn = document.getElementById('dossier-prev-btn');
+    const nextBtn = document.getElementById('dossier-next-btn');
+    const dataEl = document.getElementById('dossier-data');
+
+    // Tab buttons for switching pairs
+    const pairTabs = document.querySelectorAll('[data-pair-tab]');
+    const pairDecks = document.querySelectorAll('.pair-deck');
+
+    let projects: any[] = [];
+    try {
+      projects = JSON.parse(dataEl?.textContent || '[]');
+    } catch (e) {
+      console.error('Failed to parse projects dataset', e);
+    }
+
+    let currentProjectIndex = 0;
+
+    // Elements inside dossier dialog
+    const folderIdEl = document.getElementById('dossier-folder-id');
+    const dateEl = document.getElementById('dossier-date');
+    const contextTagEl = document.getElementById('dossier-context-tag');
+    const eyebrowDateEl = document.getElementById('dossier-eyebrow-date');
+    const titleEl = document.getElementById('dossier-title');
+    const purposeEl = document.getElementById('dossier-purpose');
+    const tagsContainerEl = document.getElementById('dossier-tags-container');
+    const imgEl = document.getElementById('dossier-image') as HTMLImageElement | null;
+    const narrativeEl = document.getElementById('dossier-narrative');
+    const highlightsListEl = document.getElementById('dossier-highlights-list');
+    const stackContainerEl = document.getElementById('dossier-stack-container');
+    const linksContainerEl = document.getElementById('dossier-links-container');
+    const metricsGridEl = document.getElementById('dossier-metrics-grid');
+
+    // Sticky note elements
+    const stickyRoleEl = document.getElementById('dossier-sticky-role');
+    const stickyTimelineEl = document.getElementById('dossier-sticky-timeline');
+    const stickyArchEl = document.getElementById('dossier-sticky-arch');
+    const stickyStatusEl = document.getElementById('dossier-sticky-status');
+
+    function populateDossier(index: number) {
+      const p = projects[index];
+      if (!p || !dialog) return;
+
+      currentProjectIndex = index;
+
+      if (folderIdEl) folderIdEl.textContent = `ENGINEERING DOSSIER #${p.numStr}`;
+      if (dateEl) dateEl.textContent = `• ${p.date}`;
+      if (eyebrowDateEl) eyebrowDateEl.textContent = `• ${p.date}`;
+      if (contextTagEl) contextTagEl.textContent = p.context;
+      if (titleEl) titleEl.textContent = p.name;
+      if (purposeEl) purposeEl.textContent = p.purpose || p.description;
+      if (narrativeEl) narrativeEl.textContent = p.narrative || p.description;
+
+      // Populate Image
+      if (imgEl) {
+        imgEl.src = p.image;
+        imgEl.alt = `Screenshot of ${p.name}`;
+      }
+
+      // Populate Sticky Notes
+      if (stickyRoleEl) stickyRoleEl.textContent = p.stickyMeta?.role || 'Engineer';
+      if (stickyTimelineEl) stickyTimelineEl.textContent = p.stickyMeta?.timeline || 'Present';
+      if (stickyArchEl) stickyArchEl.textContent = p.stickyMeta?.arch || 'Modular';
+      if (stickyStatusEl) stickyStatusEl.textContent = p.stickyMeta?.status || 'Active';
+
+      // Populate Tags
+      if (tagsContainerEl) {
+        tagsContainerEl.innerHTML = '';
+        const tags = [p.category.toUpperCase(), ...(p.stack.slice(0, 3))];
+        tags.forEach((t: string) => {
+          const span = document.createElement('span');
+          span.className = 'rounded bg-paper px-2.5 py-0.5 font-mono text-xs font-semibold text-blue-ink border border-line shadow-2xs';
+          span.textContent = t;
+          tagsContainerEl.appendChild(span);
+        });
+      }
+
+      // Populate Metrics
+      if (metricsGridEl) {
+        metricsGridEl.innerHTML = '';
+        (p.metrics || []).forEach((m: { val: string; label: string }) => {
+          const div = document.createElement('div');
+          div.className = 'stat-metric-card';
+          div.innerHTML = `
+            <div class="text-2xl sm:text-3xl font-extrabold font-mono text-blue-ink">${m.val}</div>
+            <div class="font-mono text-xs uppercase tracking-wider text-ink-soft mt-1">${m.label}</div>
+          `;
+          metricsGridEl.appendChild(div);
+        });
+      }
+
+      // Populate Highlights
+      if (highlightsListEl) {
+        highlightsListEl.innerHTML = '';
+        (p.highlights || []).forEach((h: string) => {
+          const li = document.createElement('li');
+          li.className = 'flex items-start gap-2';
+          li.innerHTML = `<span class="text-blue-ink font-bold shrink-0">✓</span><span>${h}</span>`;
+          highlightsListEl.appendChild(li);
+        });
+      }
+
+      // Populate Stack
+      if (stackContainerEl) {
+        stackContainerEl.innerHTML = '';
+        (p.stack || []).forEach((t: string) => {
+          const span = document.createElement('span');
+          span.className = 'rounded border border-line bg-paper px-2.5 py-1 font-mono text-xs font-semibold text-ink-soft shadow-2xs';
+          span.textContent = t;
+          stackContainerEl.appendChild(span);
+        });
+      }
+
+      // Populate Action Links
+      if (linksContainerEl) {
+        linksContainerEl.innerHTML = '';
+        (p.links || []).forEach((link: { label: string; href: string }) => {
+          const a = document.createElement('a');
+          a.href = link.href;
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.className = 'btn btn-primary inline-flex items-center gap-1.5 shadow-sm text-xs';
+          a.innerHTML = `<span>📁 ${link.label}</span><span aria-hidden="true">↗</span>`;
+          linksContainerEl.appendChild(a);
+        });
+      }
+    }
+
+    function openDossier(index: number) {
+      populateDossier(index);
+      dialog?.showModal();
+    }
+
+    // Bind triggers to open dossier
+    document.querySelectorAll('[data-open-dossier]').forEach((trigger) => {
+      trigger.addEventListener('click', (e) => {
+        if ((e.target as HTMLElement).closest('a[target="_blank"]')) return;
+        const idxStr = trigger.getAttribute('data-open-dossier');
+        const idx = parseInt(idxStr || '0', 10);
+        openDossier(idx);
+      });
+
+      trigger.addEventListener('keydown', (e: any) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const idxStr = trigger.getAttribute('data-open-dossier');
+          const idx = parseInt(idxStr || '0', 10);
+          openDossier(idx);
+        }
+      });
+    });
+
+    // Pair tab switcher
+    pairTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const pairIdx = tab.getAttribute('data-pair-tab');
+        pairTabs.forEach((t) => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+
+        pairDecks.forEach((deck) => {
+          if (deck.getAttribute('data-deck-index') === pairIdx) {
+            deck.classList.remove('hidden');
+            deck.classList.add('block');
+          } else {
+            deck.classList.remove('block');
+            deck.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // Prev / Next inside dossier
+    prevBtn?.addEventListener('click', () => {
+      const nextIdx = (currentProjectIndex - 1 + projects.length) % projects.length;
+      populateDossier(nextIdx);
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      const nextIdx = (currentProjectIndex + 1) % projects.length;
+      populateDossier(nextIdx);
+    });
+
+    // Close handlers
+    closeBtn?.addEventListener('click', () => dialog?.close());
+    closeFooterBtns.forEach((btn) => btn.addEventListener('click', () => dialog?.close()));
+    dialog?.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (!dialog?.open) return;
+      if (e.key === 'ArrowRight') {
+        const nextIdx = (currentProjectIndex + 1) % projects.length;
+        populateDossier(nextIdx);
+      } else if (e.key === 'ArrowLeft') {
+        const nextIdx = (currentProjectIndex - 1 + projects.length) % projects.length;
+        populateDossier(nextIdx);
+      }
+    });
+  });
+</script>

@@ -1,0 +1,272 @@
+---
+/**
+ * Hero Section — Terinspirasi dari Panel 1 & 2 referensi:
+ * - Komposisi terpusat yang berkarakter dengan nama tebal
+ * - Micro-sticky pills melayang dengan garis penunjuk halus (leader lines)
+ * - Headline kuat & jujur
+ * - 3 Proof Pillars (Build, Research, Communicate) sebagai fondasi rekayasa
+ */
+import Container from '@/components/Container.astro';
+import Button from '@/components/ui/Button.astro';
+import PaperCard from '@/components/ui/PaperCard.astro';
+import Tag from '@/components/ui/Tag.astro';
+import { portfolio } from '@/data/portfolio';
+import { accentText } from '@/lib/ui';
+
+const { profile, hero } = portfolio;
+---
+
+<section id="top" aria-labelledby="hero-title" class="relative pt-12 pb-16 sm:pt-16 md:pb-20 lg:pt-20">
+  <Container class="space-y-12 sm:space-y-16">
+    <!-- Main Centerpiece (Inspired by Reference Panel 1) -->
+    <div class="relative mx-auto max-w-4xl text-center">
+      
+      <!-- Handwritten Intro Note with flower doodle -->
+      <div class="inline-flex items-center justify-center gap-1.5 font-hand text-xl text-ink-soft sm:text-2xl">
+        <span class="anime-sparkle text-orange-ink text-sm" aria-hidden="true">⋆</span>
+        <span>hi there, my name is</span>
+        <span class="text-orange-ink" aria-hidden="true">✦</span>
+      </div>
+
+      <!-- Walking Cat Paws Trail leading into the name -->
+      <div class="flex items-center justify-center gap-2 -my-1 text-xs select-none pointer-events-none" aria-hidden="true">
+        <span class="paw-step rotate-[-18deg]" style="animation-delay: 0s;">🐾</span>
+        <span class="paw-step rotate-[14deg]" style="animation-delay: 0.4s;">🐾</span>
+        <span class="paw-step rotate-[-8deg]" style="animation-delay: 0.8s;">🐾</span>
+      </div>
+
+      <!-- Centered Display Name Container with Floating Micro-Pills -->
+      <div class="relative my-4 inline-block">
+        <!-- Floating Pill: Top Left (Software Engineer) -->
+        <div class="float-pill-1 hidden sm:inline-flex absolute -top-5 -left-12 lg:-left-24 items-center gap-1.5 rounded-full border border-blue-ink/30 bg-blue-tint/95 px-3 py-1 font-mono text-[11px] font-bold text-blue-ink shadow-xs">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+          <span>Software Engineer</span>
+        </div>
+
+        <!-- Floating Pill: Top Right (Flutter & Laravel) -->
+        <div class="float-pill-2 hidden sm:inline-flex absolute -top-5 -right-12 lg:-right-24 items-center gap-1.5 rounded-full border border-orange-ink/30 bg-orange-tint/95 px-3 py-1 font-mono text-[11px] font-bold text-orange-ink shadow-xs">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-2 10h7L7 22l2-10H2Z"/></svg>
+          <span>Flutter & Laravel</span>
+        </div>
+
+        <!-- Hand-drawn curved arrow doodle pointing to Software Engineer & Coffee Fuel -->
+        <div class="hidden lg:block absolute -top-16 left-16 text-left pointer-events-none select-none">
+          <span class="font-hand text-sm font-bold text-amber-900 block rotate-2">☕ Kopi Tubruk & Lofi</span>
+          <span class="font-hand text-xs font-bold text-cyan-900/90 block -rotate-1">🎧 Flow State</span>
+          <svg class="w-16 h-8 text-amber-700 mr-auto rotate-6 overflow-visible" viewBox="0 0 60 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="animated-arrow-path" d="M50 6 C35 2, 18 10, 10 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            <path d="M16 18 L9 25 L19 25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+
+        <!-- Hand-drawn curved arrow doodle pointing to Flutter & Laravel -->
+        <div class="hidden lg:block absolute -top-14 right-20 text-right pointer-events-none select-none">
+          <span class="font-hand text-sm font-bold text-orange-ink block -rotate-3">my daily drivers ✦</span>
+          <svg class="w-16 h-8 text-orange-ink ml-auto -rotate-12 overflow-visible" viewBox="0 0 60 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="animated-arrow-path" d="M10 6 C25 2, 45 10, 52 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            <path d="M46 18 L53 25 L43 25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+
+        <!-- Interactive Illustrated Cat Sticker perched on the name -->
+        <div class="cat-sticker absolute -top-11 sm:-top-14 right-4 sm:right-16 z-20 group cursor-pointer" title="Nyaa~ Alvian's coding companion!">
+          <!-- Speech Bubble on hover -->
+          <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md border border-line bg-paper-light px-2 py-0.5 font-hand text-xs font-bold text-ink shadow-xs">
+            <span>nyaa~ zero bug compile! 🐾</span>
+            <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 h-1.5 w-1.5 rotate-45 border-b border-r border-line bg-paper-light"></div>
+          </div>
+          
+          <!-- Miniature washi tape holding the cat sticker -->
+          <div class="absolute -top-1 left-2 h-2.5 w-6 -rotate-12 bg-yellow-300/85 border border-black/10 shadow-2xs pointer-events-none"></div>
+
+          <!-- Cute Handcrafted SVG Cat -->
+          <svg class="h-12 w-12 sm:h-14 sm:w-14 select-none drop-shadow-sm transition-transform duration-200 group-hover:scale-110" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer white sticker border -->
+            <path d="M18 28 C14 12, 28 14, 32 24 C36 22, 44 22, 48 24 C52 14, 66 12, 62 28 C70 36, 70 54, 60 62 C52 68, 28 68, 20 62 C10 54, 10 36, 18 28 Z" fill="#ffffff" stroke="#231f20" stroke-width="2.5" stroke-linejoin="round" />
+            <!-- Cat Face Body (soft cream) -->
+            <path d="M20 30 C17 16, 28 18, 32 26 C36 24, 44 24, 48 26 C52 18, 63 16, 60 30 C67 37, 67 52, 58 60 C51 65, 29 65, 22 60 C13 52, 13 37, 20 30 Z" fill="#FFFDF8" />
+            <!-- Left ear inside pink -->
+            <polygon points="23,24 28,21 28,28" fill="#FCA5A5" />
+            <!-- Right ear inside pink -->
+            <polygon points="57,24 52,21 52,28" fill="#FCA5A5" />
+            <!-- Calico patch on ear -->
+            <path d="M48 26 C52 20, 60 20, 59 30 C58 38, 52 40, 48 36 Z" fill="#FDBA74" opacity="0.85" />
+            <!-- Happy closed anime eyes ^ ^ -->
+            <path d="M27 38 Q31 34 35 38" stroke="#231f20" stroke-width="2.2" stroke-linecap="round" fill="none" />
+            <path d="M45 38 Q49 34 53 38" stroke="#231f20" stroke-width="2.2" stroke-linecap="round" fill="none" />
+            <!-- Rosy blush cheeks -->
+            <ellipse cx="26" cy="42" rx="3.5" ry="2" fill="#F87171" opacity="0.65" />
+            <ellipse cx="54" cy="42" rx="3.5" ry="2" fill="#F87171" opacity="0.65" />
+            <!-- Little nose & mouth :3 -->
+            <polygon points="39,41 41,41 40,43" fill="#F87171" />
+            <path d="M37 44 Q40 47 40 44 Q40 47 43 44" stroke="#231f20" stroke-width="1.8" stroke-linecap="round" fill="none" />
+            <!-- Whiskers -->
+            <line x1="16" y1="39" x2="23" y2="41" stroke="#231f20" stroke-width="1.5" stroke-linecap="round" />
+            <line x1="16" y1="44" x2="23" y2="44" stroke="#231f20" stroke-width="1.5" stroke-linecap="round" />
+            <line x1="57" y1="41" x2="64" y2="39" stroke="#231f20" stroke-width="1.5" stroke-linecap="round" />
+            <line x1="57" y1="44" x2="64" y2="44" stroke="#231f20" stroke-width="1.5" stroke-linecap="round" />
+            <!-- Front paws resting on the text edge -->
+            <ellipse cx="32" cy="58" rx="4.5" ry="3.5" fill="#ffffff" stroke="#231f20" stroke-width="1.5" />
+            <ellipse cx="48" cy="58" rx="4.5" ry="3.5" fill="#ffffff" stroke="#231f20" stroke-width="1.5" />
+          </svg>
+        </div>
+
+        <!-- The Main Name -->
+        <h1 id="hero-title" class="px-2 text-4xl font-extrabold tracking-tight text-ink sm:text-6xl md:text-7xl lg:text-8xl">
+          {profile.name}
+        </h1>
+
+        <!-- Hand-Drawn Animated Marker Underline -->
+        <div class="relative w-full max-w-xl mx-auto -mt-1 sm:-mt-2 mb-2 pointer-events-none select-none">
+          <svg class="w-full h-3 sm:h-4 text-orange-ink overflow-visible" viewBox="0 0 500 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="animated-underline-path" d="M4 11C90 4.5 260 3.5 496 9" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path class="animated-underline-path" style="animation-delay: 0.5s;" d="M25 14C140 10.5 330 10 475 13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-opacity="0.6" />
+          </svg>
+        </div>
+
+        <!-- Floating Pill: Bottom Left (Applied AI / NLP) -->
+        <div class="float-pill-3 hidden sm:inline-flex absolute -bottom-3 -left-8 lg:-left-16 items-center gap-1.5 rounded-full border border-green-ink/30 bg-green-tint/95 px-3 py-1 font-mono text-[11px] font-bold text-green-ink shadow-xs">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 3.5 2 6 4 7.5V20a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.5c2-1.5 4-4 4-7.5a8 8 0 0 0-8-8z"/><path d="M9 13h6"/></svg>
+          <span>Applied AI · NLP</span>
+        </div>
+
+        <!-- Floating Pill: Bottom Right (Yogyakarta, ID) -->
+        <div class="float-pill-4 hidden sm:inline-flex absolute -bottom-3 -right-8 lg:-right-16 items-center gap-1.5 rounded-full border border-line bg-paper-light px-3 py-1 font-mono text-[11px] font-semibold text-ink-soft shadow-xs">
+          <svg class="w-3.5 h-3.5 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Yogyakarta, ID</span>
+        </div>
+      </div>
+
+      <!-- Mobile fallback pills -->
+      <div class="flex flex-wrap items-center justify-center gap-2 pt-2 sm:hidden">
+        <span class="rounded-full border border-blue-ink/30 bg-blue-tint px-2.5 py-0.5 font-mono text-[10px] font-bold text-blue-ink">Software Engineer</span>
+        <span class="rounded-full border border-orange-ink/30 bg-orange-tint px-2.5 py-0.5 font-mono text-[10px] font-bold text-orange-ink">Flutter & Laravel</span>
+        <span class="rounded-full border border-green-ink/30 bg-green-tint px-2.5 py-0.5 font-mono text-[10px] font-bold text-green-ink">Applied AI</span>
+      </div>
+
+      <!-- Availability status -->
+      <div class="mt-4 flex items-center justify-center gap-2">
+        <span class="h-2 w-2 rounded-full bg-green-ink animate-pulse" aria-hidden="true"></span>
+        <p class="font-mono text-xs font-semibold tracking-wider text-ink-soft uppercase">
+          Open to software engineering opportunities
+        </p>
+      </div>
+
+      <!-- Headline philosophy -->
+      <p class="mx-auto mt-6 max-w-2xl text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-4xl leading-snug">
+        I build practical mobile and web applications that solve real problems.
+      </p>
+
+      <p class="mx-auto mt-4 max-w-xl text-base sm:text-lg text-ink-soft leading-relaxed">
+        {hero.lead}
+      </p>
+
+      <!-- Core Stack Chips -->
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-2">
+        <span class="font-mono text-xs font-semibold text-ink-soft uppercase">Core Stack:</span>
+        {(hero.techStack || ['Riverpod', 'SQLite / Drift', 'REST API', 'MySQL', 'Git']).map((tech) => (
+          <Tag>{tech}</Tag>
+        ))}
+      </div>
+
+      <!-- CTAs -->
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <Button href={hero.primaryCta.href}>{hero.primaryCta.label}</Button>
+        <Button href={hero.secondaryCta.href} variant="secondary" external>{hero.secondaryCta.label}</Button>
+      </div>
+
+      <!-- Personal Scrapbook Desk Stickers (Cat, Anime, Dota 2 Gaming) -->
+      <div class="mt-8 pt-4 border-t border-dashed border-line/70 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
+        <!-- Sticker: Cat Companion -->
+        <div class="inline-flex items-center gap-1.5 rounded-md border border-line bg-paper-light px-3 py-1.5 font-mono text-xs font-semibold text-ink shadow-2xs rotate-[-2deg] hover:rotate-0 transition-transform duration-200">
+          <span class="text-sm">🐾</span>
+          <span>1 Cat on Desk</span>
+          <span class="text-[10px] text-ink-soft border-l border-line pl-1.5">Chief Morale Officer</span>
+        </div>
+
+        <!-- Sticker: Anime / Kaizen Mindset -->
+        <div class="inline-flex items-center gap-1.5 rounded-md border border-purple-200 bg-purple-50/90 px-3 py-1.5 font-mono text-xs font-bold text-purple-800 shadow-2xs rotate-[1.5deg] hover:rotate-0 transition-transform duration-200">
+          <span class="anime-sparkle text-purple-600">✦</span>
+          <span>限界突破 · Kaizen Arc</span>
+          <span class="rounded bg-purple-100 px-1 py-0.2 font-mono text-[9px] text-purple-700">Anime Lover</span>
+        </div>
+
+        <!-- Sticker: Dota 2 Gaming Easter Egg -->
+        <div class="inline-flex items-center gap-1.5 rounded-md border border-red-200 bg-red-50/90 px-3 py-1.5 font-mono text-xs font-bold text-red-800 shadow-2xs rotate-[-1.5deg] hover:rotate-0 transition-transform duration-200 group" title="Late Game Hard Carry: High patience, map vision, and relentless execution under pressure.">
+          <!-- Dota 2 Shield / River Emblem -->
+          <svg class="w-3.5 h-3.5 text-red-600 shrink-0" viewBox="0 0 32 32" fill="currentColor">
+            <path d="M2.5 6.2C2.5 4.1 4.1 2.5 6.2 2.5h19.6C27.9 2.5 29.5 4.1 29.5 6.2v19.6c0 2.1-1.6 3.7-3.7 3.7H6.2c-2.1 0-3.7-1.6-3.7-3.7V6.2z" fill="#201b1b" stroke="#8a1e1b" stroke-width="1.5" />
+            <path d="M7 23.5l1.8-8.2 6.4 6.4-8.2 1.8z" fill="#dc2626" />
+            <path d="M25 8.5l-1.8 8.2-6.4-6.4 8.2-1.8z" fill="#dc2626" />
+            <path d="M8.2 8.2l15.6 15.6-2.4 2.4L5.8 10.6l2.4-2.4z" fill="#ef4444" />
+          </svg>
+          <span>Dota 2 Enjoyer</span>
+          <span class="rounded bg-red-100 px-1 py-0.2 font-mono text-[9px] text-red-700">Pos 1/2 Carry</span>
+        </div>
+
+        <!-- Sticker: Developer Fuel -->
+        <div class="inline-flex items-center gap-1.5 rounded-md border border-amber-200 bg-amber-50/90 px-3 py-1.5 font-mono text-xs font-bold text-amber-900 shadow-2xs rotate-[2deg] hover:rotate-0 transition-transform duration-200" title="Aceh Gayo V60 Pour-Over Enthusiast">
+          <span class="text-sm">☕</span>
+          <span>Aceh Gayo V60</span>
+          <span class="rounded bg-amber-100 px-1 py-0.2 font-mono text-[9px] text-amber-800">Pour-Over Fuel</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 Proof Pillars Strip (Build, Research, Communicate) -->
+    <div class="rounded-lg border border-line bg-paper-light/90 p-5 sm:p-7 shadow-xs">
+      <div class="mb-4 flex flex-wrap items-center justify-between gap-2 border-b border-dashed border-line pb-3">
+        <div class="flex items-center gap-2">
+          <p class="font-mono text-xs font-bold tracking-widest text-ink-soft uppercase">
+            Three Professional Proof Pillars
+          </p>
+          <span class="text-ink-soft">·</span>
+          <span class="font-hand text-base text-blue-ink">how engineering is differentiated</span>
+        </div>
+        <p class="hidden sm:inline font-mono text-xs text-ink-soft">Evidence-first profile</p>
+      </div>
+
+      <ul class="grid gap-4 sm:grid-cols-3" aria-label="Three professional proof points">
+        {hero.notes.map((note, i) => {
+          const isPrimary = i === 0;
+          return (
+            <PaperCard
+              as="li"
+              tilt="none"
+              tape="top-center"
+              tapeColor={note.color}
+              interactive
+              padding="sm"
+              class:list={[
+                'flex h-full flex-col justify-between',
+                {
+                  'border-blue-ink/40 bg-paper-light ring-1 ring-blue-ink/15': isPrimary,
+                  'opacity-95': !isPrimary,
+                },
+              ]}
+            >
+              <div>
+                <div class="flex items-center justify-between">
+                  <p class:list={['font-hand text-base font-bold leading-none', accentText[note.color]]}>
+                    {note.label}
+                  </p>
+                  {isPrimary && (
+                    <span class="rounded bg-blue-tint px-1.5 py-0.5 font-mono text-[9px] font-bold text-blue-ink uppercase">
+                      Primary
+                    </span>
+                  )}
+                </div>
+                <p class="mt-2 text-base font-bold tracking-tight text-ink">
+                  {note.title}
+                </p>
+              </div>
+              <p class="mt-2.5 border-t border-dashed border-line/60 pt-2 font-mono text-xs text-ink-soft">
+                {note.items.join(' · ')}
+              </p>
+            </PaperCard>
+          );
+        })}
+      </ul>
+    </div>
+  </Container>
+</section>

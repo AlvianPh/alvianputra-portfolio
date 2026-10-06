@@ -1,0 +1,14 @@
+---
+/** Cap status, mis. "Published" / "Accepted". Teksnya bermakna, jadi tetap dibaca screen reader. */
+import { accentText, type Accent } from '@/lib/ui';
+
+interface Props {
+  color?: Accent;
+  tilt?: boolean;
+  class?: string;
+}
+
+const { color = 'green', tilt = true, class: className } = Astro.props;
+---
+
+<span class:list={['stamp', accentText[color], { '-rotate-2': tilt }, className]}><slot /></span>

@@ -1,0 +1,27 @@
+---
+/**
+ * Sticky note untuk catatan pendek / statistik / insight.
+ * Judul memakai font tangan, isi tetap font utama agar mudah dibaca.
+ */
+import { accentTint, tiltStyle, type Accent, type Tilt } from '@/lib/ui';
+
+interface Props {
+  color?: Accent;
+  tilt?: Tilt;
+  title?: string;
+  interactive?: boolean;
+  class?: string;
+}
+
+const { color = 'orange', tilt = 'slight-right', title, interactive = false, class: className } = Astro.props;
+---
+
+<div
+  class:list={['note-paper tilt p-4 sm:p-5', { lift: interactive }, className]}
+  style={`${tiltStyle(tilt)} --note-color: ${accentTint[color]};`}
+>
+  {title && <p class="mb-1 font-hand text-xl leading-tight">{title}</p>}
+  <div class="text-sm leading-relaxed">
+    <slot />
+  </div>
+</div>

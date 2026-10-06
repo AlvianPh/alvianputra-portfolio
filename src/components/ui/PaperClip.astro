@@ -1,0 +1,21 @@
+---
+/** Klip kertas dekoratif (aria-hidden). Taruh di dalam elemen ber-position relative. */
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<svg
+  aria-hidden="true"
+  viewBox="0 0 24 64"
+  width="18"
+  height="48"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2.2"
+  stroke-linecap="round"
+  class:list={['pointer-events-none absolute z-10 text-ink-soft/70', className]}
+>
+  <path d="M8 44 V12 a4 4 0 0 1 8 0 V50 a6 6 0 0 1 -12 0 V18" />
+</svg>

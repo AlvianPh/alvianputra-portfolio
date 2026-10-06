@@ -1,0 +1,20 @@
+---
+/**
+ * Masking tape dekoratif. Taruh di dalam elemen ber-`position: relative`
+ * (PaperCard / StickyNote sudah relative).
+ */
+import { accentFill, type AccentOrNeutral } from '@/lib/ui';
+
+interface Props {
+  position?: 'top-center' | 'top-left' | 'top-right';
+  color?: AccentOrNeutral;
+}
+
+const { position = 'top-center', color = 'neutral' } = Astro.props;
+---
+
+<span
+  aria-hidden="true"
+  class:list={['tape', `tape-${position}`]}
+  style={`--tape-color: ${accentFill[color]};`}
+></span>

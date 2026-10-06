@@ -1,0 +1,237 @@
+---
+/**
+ * Contact — Section 06 ("Let's Talk")
+ * Terinspirasi LANGSUNG dan PERSIS dari Panel 10 Referensi:
+ * - Tengah: Judul brutalist 'CONTACT' dalam framed box dengan corner tick marks.
+ * - Tengah Bawah: Lembar memo kuning hangat (Yellow Memo Pad #fef08a) berisi prompt percakapan, email box, dan tombol kirim email.
+ * - Sisi Kiri: Foto Polaroid Alvian dengan selotip washi tape di atasnya (tilted -3deg).
+ * - Sisi Kanan: Foto Polaroid layar kerja/koding berselotip (tilted +3deg).
+ * - Bawah: Catatan tangan "* Open to new work and good partners" dan deretan tombol kapsul (LinkedIn, GitHub, Resume).
+ */
+import Container from '@/components/Container.astro';
+import PhotoFrame from '@/components/ui/PhotoFrame.astro';
+import HandNote from '@/components/ui/HandNote.astro';
+import { portfolio } from '@/data/portfolio';
+
+const { contact, profile } = portfolio;
+---
+
+<section id="contact" class="relative border-t border-line py-16 sm:py-24 bg-paper/50 overflow-hidden" aria-labelledby="contact-heading">
+  <Container class="space-y-12">
+    
+    <!-- ============================================================
+         HEADER: BRUTALIST FRAMED 'CONTACT' BOX (Exact Panel 10)
+         ============================================================ -->
+    <div class="text-center space-y-2">
+      <div>
+        <HandNote color="orange" size="lg">let's chat</HandNote>
+      </div>
+
+      <!-- Framed Box with Corner Ticks -->
+      <div class="relative inline-block px-7 py-2 border-2 border-ink bg-paper-light shadow-xs">
+        <!-- Corner ticks -->
+        <span class="absolute -top-1 -left-1 h-2.5 w-2.5 border-t-2 border-l-2 border-ink" aria-hidden="true"></span>
+        <span class="absolute -top-1 -right-1 h-2.5 w-2.5 border-t-2 border-r-2 border-ink" aria-hidden="true"></span>
+        <span class="absolute -bottom-1 -left-1 h-2.5 w-2.5 border-b-2 border-l-2 border-ink" aria-hidden="true"></span>
+        <span class="absolute -bottom-1 -right-1 h-2.5 w-2.5 border-b-2 border-r-2 border-ink" aria-hidden="true"></span>
+
+        <h2 id="contact-heading" class="font-mono text-2xl sm:text-3xl font-black tracking-widest text-ink uppercase">
+          CONTACT
+        </h2>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         MAIN 3-COLUMN COMPOSITION (Exact Panel 10 Layout)
+         Left: Polaroid Photo | Center: Yellow Memo Pad | Right: Polaroid Photo
+         ============================================================ -->
+    <div class="grid items-center justify-items-center gap-8 lg:grid-cols-12 lg:gap-6">
+      
+      <!-- SISI KIRI: Foto Polaroid Alvian (Tilted Left -3deg) -->
+      <div class="hidden lg:flex flex-col items-center justify-center lg:col-span-3">
+        <div class="transform -rotate-3 hover:rotate-0 transition-transform duration-300">
+          <PhotoFrame
+            src={profile.photo}
+            alt="Alvian Putra Hardiadi"
+            caption="Alvian · Yogyakarta, ID"
+            ratio="3 / 4"
+            tilt="none"
+            tape="top-center"
+            tapeColor="blue"
+            class="w-56 shadow-paper-lift"
+          />
+        </div>
+      </div>
+
+      <!-- TENGAH: WARM YELLOW MEMO PAD (Panel 10 Centerpiece) -->
+      <div class="w-full max-w-lg lg:col-span-6">
+        <div class="relative rounded-lg border border-ink/20 bg-[#fef08a] p-6 sm:p-8 text-ink shadow-paper-lift">
+          <!-- Washi tape at top of memo -->
+          <span class="tape tape-top-center" style="--tape-color: #f59e0b;" aria-hidden="true"></span>
+
+          <!-- Interactive Cat Peeking on Contact Memo -->
+          <div class="cat-sticker absolute -top-8 -right-3 z-20 group cursor-pointer" title="Bat at the memo pad!">
+            <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none absolute -top-7 right-0 whitespace-nowrap rounded-md border border-line bg-paper-light px-2 py-0.5 font-hand text-xs font-bold text-ink shadow-xs">
+              <span>let's talk code or Dota 2! 🐾</span>
+            </div>
+            <svg class="h-10 w-10 sm:h-12 sm:w-12 select-none drop-shadow-sm transition-transform duration-200 group-hover:scale-110" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 40 C10 24, 20 12, 23 20 C26 18, 34 18, 37 20 C40 12, 50 24, 48 40 Z" fill="#ffffff" stroke="#231f20" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M14 40 C12 26, 20 15, 23 22 C26 20, 34 20, 37 22 C40 15, 48 26, 46 40 Z" fill="#FFFDF8"/>
+              <polygon points="17,21 21,17 22,23" fill="#FCA5A5" />
+              <polygon points="43,21 39,17 38,23" fill="#FCA5A5" />
+              <path d="M21 30 Q24 27 27 30" stroke="#231f20" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+              <path d="M33 30 Q36 27 39 30" stroke="#231f20" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+              <polygon points="29,33 31,33 30,34" fill="#F87171" />
+              <path d="M28 35 Q30 37 30 35 Q30 37 32 35" stroke="#231f20" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+              <ellipse cx="23" cy="42" rx="3.5" ry="2.5" fill="#ffffff" stroke="#231f20" stroke-width="1.2" />
+              <ellipse cx="37" cy="42" rx="3.5" ry="2.5" fill="#ffffff" stroke="#231f20" stroke-width="1.2" />
+            </svg>
+          </div>
+
+          <!-- Prompt Heading in Uppercase Mono -->
+          <p class="font-mono text-xs sm:text-sm font-extrabold tracking-wide uppercase leading-relaxed text-center text-ink/90">
+            SET A CALL, A PROJECT, OR JUST WANT TO SAY HI? SEND IT OVER! I READ EVERY MESSAGE.
+          </p>
+
+          <!-- Direct Email Pill Box -->
+          <div class="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 rounded border border-ink/20 bg-paper-light/90 px-3.5 py-2.5 shadow-2xs">
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="text-xs text-ink-soft shrink-0">✉</span>
+              <span id="email-address-text" class="font-mono text-xs sm:text-sm font-bold text-ink truncate select-all">
+                {contact.email}
+              </span>
+            </div>
+            <button
+              id="copy-email-btn"
+              type="button"
+              class="inline-flex items-center justify-center gap-1 rounded border border-line bg-paper px-2.5 py-1 font-mono text-[11px] font-bold text-ink-soft hover:text-ink hover:border-ink transition-all cursor-pointer shrink-0"
+              title="Copy email address to clipboard"
+            >
+              <span id="copy-btn-label">Copy</span>
+            </button>
+          </div>
+
+          <!-- Prominent Action Button -->
+          <div class="mt-5">
+            <a
+              href={`mailto:${contact.email}`}
+              class="flex w-full items-center justify-center gap-2 rounded border border-ink bg-ink py-3 px-4 font-mono text-xs sm:text-sm font-bold tracking-wider text-paper-light uppercase shadow-sm hover:bg-blue-ink hover:border-blue-ink hover:shadow-md transition-all text-center no-underline cursor-pointer"
+            >
+              <span>SEND AN EMAIL</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+
+          <!-- Availability Footnote -->
+          <div class="mt-5 text-center">
+            <p class="font-hand text-sm sm:text-base text-ink/80">
+              * Open to software engineering roles, hybrid or remote
+            </p>
+          </div>
+
+          <!-- Personal Desk Stamps & Easter Eggs -->
+          <div class="mt-4 flex flex-wrap items-center justify-center gap-2 border-t border-dashed border-ink/20 pt-3">
+            <span class="inline-flex items-center gap-1 rounded bg-amber-200/80 px-2.5 py-0.5 font-mono text-[10px] font-bold text-amber-950 shadow-2xs" title="Fueled by Kopi Tubruk & Lofi">
+              <span>☕</span> Kopi Tubruk & Lofi
+            </span>
+            <span class="inline-flex items-center gap-1 rounded bg-cyan-200/80 px-2.5 py-0.5 font-mono text-[10px] font-bold text-cyan-950 shadow-2xs" title="Deep coding focus in flow state">
+              <span>🎧</span> Flow State
+            </span>
+            <span class="inline-flex items-center gap-1 rounded bg-ink/10 px-2 py-0.5 font-mono text-[10px] font-bold text-ink">
+              <span>🐾</span> Cat-Approved Inbox
+            </span>
+            <span class="inline-flex items-center gap-1 rounded bg-purple-200/70 px-2 py-0.5 font-mono text-[10px] font-bold text-purple-900">
+              <span class="anime-sparkle">✦</span> Fast Kaizen Response
+            </span>
+            <span class="inline-flex items-center gap-1 rounded bg-red-200/70 px-2 py-0.5 font-mono text-[10px] font-bold text-red-900" title="Dota 2 party invites also welcome!">
+              <span>🎮</span> Dota 2 Party Welcome
+            </span>
+          </div>
+
+          <!-- Subtle coffee ring mark on contact memo corner -->
+          <div class="coffee-ring -bottom-6 -right-6 w-20 h-20 opacity-20 pointer-events-none" aria-hidden="true"></div>
+        </div>
+
+        <!-- Social & Professional Links Strip Below Center Card -->
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-2">
+          {contact.links.map((link) => (
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 rounded-full border border-line bg-paper px-3.5 py-1 font-mono text-xs font-bold text-ink-soft hover:text-ink hover:border-ink hover:bg-paper-dark transition-all shadow-2xs no-underline"
+            >
+              <span>{link.label.toUpperCase()}</span>
+              <span class="text-[10px] opacity-70" aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- SISI KANAN: Foto Polaroid Layar Kerja (Tilted Right +3deg) -->
+      <div class="hidden lg:flex flex-col items-center justify-center lg:col-span-3">
+        <div class="transform rotate-3 hover:rotate-0 transition-transform duration-300">
+          <PhotoFrame
+            src="/images/arthawira-screen.png"
+            alt="Engineering code and mobile architecture"
+            caption="workspace desk · late-night coding"
+            ratio="4 / 3"
+            tilt="none"
+            tape="top-center"
+            tapeColor="orange"
+            class="w-60 shadow-paper-lift"
+          />
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Mobile Polaroid Strip (Hanya tampil di layar kecil/HP agar seimbang) -->
+    <div class="flex items-center justify-center gap-4 lg:hidden pt-4">
+      <div class="w-36 transform -rotate-2">
+        <PhotoFrame
+          src={profile.photo}
+          alt="Alvian Putra Hardiadi"
+          caption="Yogyakarta, ID"
+          ratio="3 / 4"
+          tilt="none"
+          class="w-full text-[10px]"
+        />
+      </div>
+      <div class="w-40 transform rotate-2">
+        <PhotoFrame
+          src="/images/arthawira-screen.png"
+          alt="Engineering code"
+          caption="in the zone"
+          ratio="4 / 3"
+          tilt="none"
+          class="w-full text-[10px]"
+        />
+      </div>
+    </div>
+
+  </Container>
+</section>
+
+<!-- Copy Email Interactive Script -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const copyBtn = document.getElementById('copy-email-btn');
+    const emailText = document.getElementById('email-address-text')?.textContent?.trim() || '';
+    const labelEl = document.getElementById('copy-btn-label');
+
+    copyBtn?.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(emailText);
+        if (labelEl) {
+          labelEl.textContent = 'Copied! ✓';
+          setTimeout(() => {
+            labelEl.textContent = 'Copy';
+          }, 2000);
+        }
+      } catch (err) {
+        console.error('Failed to copy email', err);
+      }
+    });
+  });
+</script>

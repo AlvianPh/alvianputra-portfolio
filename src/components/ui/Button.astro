@@ -1,0 +1,38 @@
+---
+/**
+ * Tombol "kertas" dengan offset shadow. Otomatis jadi <a> jika ada `href`.
+ * External link otomatis dibuka di tab baru.
+ */
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  type?: 'button' | 'submit';
+  external?: boolean;
+  /** Label aksesibel jika isi tombol hanya ikon. */
+  ariaLabel?: string;
+  class?: string;
+}
+
+const { href, variant = 'primary', type = 'button', external, ariaLabel, class: className } = Astro.props;
+const isExternal = external ?? (href ? /^https?:\/\//.test(href) : false);
+const classes = ['btn', `btn-${variant}`, className];
+---
+
+{
+  href ? (
+    <a
+      href={href}
+      class:list={classes}
+      target={isExternal ? '_blank' : undefined}
+      rel={isExternal ? 'noopener noreferrer' : undefined}
+      aria-label={ariaLabel}
+    >
+      <slot />
+      {isExternal && <span class="sr-only">(opens in a new tab)</span>}
+    </a>
+  ) : (
+    <button type={type} class:list={classes} aria-label={ariaLabel}>
+      <slot />
+    </button>
+  )
+}

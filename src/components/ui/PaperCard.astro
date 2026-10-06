@@ -1,0 +1,58 @@
+---
+/**
+ * Kartu kertas — permukaan dasar untuk hampir semua konten.
+ *
+ * <PaperCard tilt="left" tape="top-center" surface="lined" interactive>
+ *   ...
+ * </PaperCard>
+ */
+import Tape from './Tape.astro';
+import { tiltStyle, type Tilt, type AccentOrNeutral } from '@/lib/ui';
+
+interface Props {
+  as?: 'div' | 'article' | 'section' | 'aside' | 'li';
+  tilt?: Tilt;
+  surface?: 'plain' | 'lined' | 'grid';
+  tape?: 'top-center' | 'top-left' | 'top-right';
+  tapeColor?: AccentOrNeutral;
+  /** Efek terangkat saat hover/focus. */
+  interactive?: boolean;
+  padding?: 'none' | 'sm' | 'md' | 'lg';
+  /** id heading yang menamai kartu (aksesibilitas). */
+  ariaLabelledby?: string;
+  class?: string;
+}
+
+const {
+  as: Tag = 'div',
+  tilt = 'none',
+  surface = 'plain',
+  tape,
+  tapeColor = 'neutral',
+  interactive = false,
+  padding = 'md',
+  ariaLabelledby,
+  class: className,
+} = Astro.props;
+
+const paddingClass = {
+  none: '',
+  sm: 'p-4',
+  md: 'p-5 sm:p-6',
+  lg: 'p-6 sm:p-8',
+}[padding];
+---
+
+<Tag
+  class:list={[
+    'paper tilt',
+    paddingClass,
+    { 'paper-lined': surface === 'lined', 'paper-grid': surface === 'grid', lift: interactive },
+    className,
+  ]}
+  style={tiltStyle(tilt)}
+  aria-labelledby={ariaLabelledby}
+>
+  {tape && <Tape position={tape} color={tapeColor} />}
+  <slot />
+</Tag>

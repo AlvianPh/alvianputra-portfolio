@@ -1,0 +1,347 @@
+---
+/**
+ * SplashScreen.astro — "The Classified Dossier Unboxing"
+ * Full English High-CTA Edition (~2.2s Snappy Entrance)
+ * 
+ * High-Conversion Design Features:
+ * 1. Zero Content Leak (html.splash-active & opacity-100 SSR lock)
+ * 2. Instant Hireability Signal: "● OPEN FOR OPPORTUNITIES"
+ * 3. 3 High-Impact Quantified Proof Pillars:
+ *    - ⚡ 90.1% Label Cost Saved (IEEE ICERA 2026 First Author)
+ *    - 📱 Production App Fleet (Arthawira B2B Ecosystem)
+ *    - 🎓 GPA 3.95 Summa Cum Laude (STMIK El Rahma & Educator)
+ * 4. 3 Interactive High-CTA Quick Jump Buttons:
+ *    - [ 🚀 Explore Projects ] -> Jumps to #projects
+ *    - [ 🔬 Read IEEE Paper ]  -> Jumps to #research
+ *    - [ ⚡ Enter Portfolio ]  -> Jumps to #top
+ * 5. Snappy 2.2s choreography with instant keyboard escape [Esc / Space / Enter]
+ */
+---
+
+<style is:global>
+  /* Lock scroll while splash screen is active */
+  html.splash-active, body.splash-active {
+    overflow: hidden !important;
+  }
+</style>
+
+<div
+  id="dossier-splash"
+  class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#171412] text-ink overflow-hidden select-none opacity-100 pointer-events-auto transition-opacity duration-500"
+  aria-label="Candidate Dossier Intro"
+  role="dialog"
+  aria-modal="true"
+>
+  <!-- Background Ambient Desk Texture & Lighting -->
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(65,52,42,0.65)_0%,_rgba(15,12,10,0.98)_100%)] pointer-events-none"></div>
+  
+  <!-- Subtle Desk Grid Lines -->
+  <div class="absolute inset-0 opacity-[0.06] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
+
+  <!-- Top Status Bar & Skip Button -->
+  <header class="absolute top-3 sm:top-5 left-4 sm:left-8 right-4 sm:right-8 z-30 flex items-center justify-between">
+    <div class="flex items-center gap-2 text-paper-light/80 font-mono text-xs">
+      <span class="inline-block h-2 w-2 rounded-full bg-emerald-400 animate-ping"></span>
+      <span class="tracking-widest uppercase font-bold text-[11px] sm:text-xs text-emerald-400">● Open for Opportunities</span>
+    </div>
+
+    <!-- Skip Button (Instant Bypass) -->
+    <button
+      id="dossier-skip-btn"
+      type="button"
+      class="group relative inline-flex items-center gap-1.5 rounded-full border border-paper-light/30 bg-paper-light/10 hover:bg-paper-light/20 backdrop-blur-md px-3 py-1 font-mono text-xs font-bold text-paper-light hover:text-white transition-all cursor-pointer shadow-lg active:scale-95"
+      title="Skip intro directly"
+    >
+      <span>Skip</span>
+      <span class="rounded bg-paper-light/20 px-1 py-0.2 font-mono text-[9px] text-paper-light/80 group-hover:text-white">Esc</span>
+      <span aria-hidden="true">⏭</span>
+    </button>
+  </header>
+
+  <!-- Dossier Folder Container -->
+  <div id="dossier-stage" class="relative z-20 w-[94vw] max-w-[540px] px-2">
+    
+    <!-- Manila Folder (Front Cover) -->
+    <div
+      id="dossier-cover"
+      class="relative w-full rounded-lg bg-[#eedfc5] border-2 border-[#8c7853] p-5 sm:p-7 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.85),0_0_0_1px_rgba(255,255,255,0.1)] transition-all duration-300"
+      style="background-image: radial-gradient(#d6c39f 1px, transparent 1px); background-size: 16px 16px;"
+    >
+      <!-- Folder Tab on Top -->
+      <div class="absolute -top-5 left-5 rounded-t-md border-t-2 border-x-2 border-[#8c7853] bg-[#eedfc5] px-3.5 py-0.5 font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#5c4a2a] shadow-xs">
+        📁 FILE 026 // CANDIDATE DOSSIER
+      </div>
+
+      <!-- Corner Washi Tape -->
+      <div class="absolute -top-2.5 -right-2.5 w-16 h-5 bg-emerald-600/80 -rotate-12 shadow-xs border border-emerald-700/40 pointer-events-none"></div>
+
+      <!-- Top Secret Warning Header -->
+      <div class="flex items-center justify-between border-b-2 border-dashed border-[#a8936b] pb-2 mb-3 pl-3">
+        <div>
+          <p class="font-mono text-[10px] tracking-widest uppercase font-black text-red-800">
+            ★ STRICTLY CONFIDENTIAL ★
+          </p>
+          <p class="font-mono text-[11px] text-[#6d5b39] font-bold">
+            RESEARCH & ENGINEERING LAB DOSSIER
+          </p>
+        </div>
+        <div class="rounded border border-red-800/60 bg-red-800/10 px-2 py-0.5 font-mono text-[10px] font-black text-red-800 uppercase">
+          VERIFIED ARCHIVE
+        </div>
+      </div>
+
+      <!-- Name & Candidate Title -->
+      <div class="pl-3 space-y-0.5">
+        <span class="font-mono text-[10px] font-bold text-[#7a643c] uppercase tracking-widest">
+          VERIFIED CANDIDATE:
+        </span>
+        <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-ink font-serif leading-none">
+          ALVIAN PUTRA HARDIADI
+        </h1>
+        <p class="font-mono text-xs sm:text-sm text-green-ink font-bold pt-0.5">
+          Software Engineer · Mobile & Web · Applied AI
+        </p>
+      </div>
+
+      <!-- Center Seal Tape (Changes to ACCESS GRANTED at 0.6s) -->
+      <div
+        id="dossier-seal-tape"
+        class="relative my-3 mx-auto w-full py-1.5 px-3 bg-red-700 text-white font-mono text-xs font-black text-center tracking-wider uppercase shadow-xs transition-all duration-300 flex items-center justify-center gap-1.5 border-y-2 border-red-900"
+      >
+        <span class="text-yellow-300">⚠</span>
+        <span id="dossier-seal-text">VERIFYING SECURITY CREDENTIALS...</span>
+        <span class="text-yellow-300">⚠</span>
+      </div>
+
+      <!-- Inner Revealed Content (Appears smoothly at 0.6s) -->
+      <div id="dossier-inner-content" class="pl-3 opacity-0 transition-opacity duration-300 space-y-3">
+        <!-- 3 High-Impact Quantified Proof Pillars -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 font-mono text-xs">
+          <!-- Pillar 1: AI Impact -->
+          <div class="rounded border border-green-ink/40 bg-green-tint/60 p-2 shadow-2xs">
+            <p class="text-xs font-black text-green-ink leading-none">⚡ 90.1% Saved</p>
+            <p class="mt-1 font-bold text-[10.5px] text-ink uppercase">Label Cost</p>
+            <p class="text-[9.5px] text-ink-soft leading-tight">First Author · IEEE '26</p>
+          </div>
+
+          <!-- Pillar 2: Production Scale -->
+          <div class="rounded border border-blue-ink/40 bg-blue-tint/60 p-2 shadow-2xs">
+            <p class="text-xs font-black text-blue-ink leading-none">📱 Production</p>
+            <p class="mt-1 font-bold text-[10.5px] text-ink uppercase">App Ecosystem</p>
+            <p class="text-[9.5px] text-ink-soft leading-tight">Arthawira B2B Fleet</p>
+          </div>
+
+          <!-- Pillar 3: Academic Excellence -->
+          <div class="rounded border border-orange-ink/40 bg-orange-tint/60 p-2 shadow-2xs">
+            <p class="text-xs font-black text-orange-ink leading-none">🎓 GPA 3.95</p>
+            <p class="mt-1 font-bold text-[10.5px] text-ink uppercase">Summa Cum Laude</p>
+            <p class="text-[9.5px] text-ink-soft leading-tight">STMIK & Vocational Lead</p>
+          </div>
+        </div>
+
+        <!-- Scientist Cat Mascot Greeting -->
+        <div class="flex items-center gap-2.5 rounded border border-green-ink/30 bg-paper/90 p-2">
+          <!-- Mascot Icon -->
+          <svg class="h-8 w-8 shrink-0 select-none drop-shadow-2xs" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 40 C10 24, 20 12, 23 20 C26 18, 34 18, 37 20 C40 12, 50 24, 48 40 Z" fill="#ffffff" stroke="#231f20" stroke-width="2"/>
+            <polygon points="17,21 21,17 22,23" fill="#FCA5A5" />
+            <polygon points="43,21 39,17 38,23" fill="#FCA5A5" />
+            <circle cx="23" cy="30" r="5" stroke="#231f20" stroke-width="1.8" fill="rgba(255,255,255,0.7)"/>
+            <circle cx="37" cy="30" r="5" stroke="#231f20" stroke-width="1.8" fill="rgba(255,255,255,0.7)"/>
+            <line x1="28" y1="30" x2="32" y2="30" stroke="#231f20" stroke-width="1.8"/>
+            <circle cx="23" cy="30" r="1.5" fill="#231f20" />
+            <circle cx="37" cy="30" r="1.5" fill="#231f20" />
+            <polygon points="29,36 31,36 30,37" fill="#F87171" />
+          </svg>
+          <div class="font-hand text-ink text-xs sm:text-sm leading-tight">
+            <p class="font-bold">"Candidate Dossier Verified & Ready for Inspection 🐾"</p>
+            <p class="text-[10px] text-ink-soft font-mono">Select a direct channel or enter portfolio below:</p>
+          </div>
+        </div>
+
+        <!-- High-Conversion Quick Jump Actions -->
+        <div class="pt-1 flex flex-wrap items-center gap-1.5 font-mono text-[11px]">
+          <button
+            type="button"
+            class="dossier-cta-btn flex-1 rounded border border-ink bg-ink px-2.5 py-1.5 font-bold text-paper-light hover:bg-green-ink hover:border-green-ink transition-colors cursor-pointer shadow-xs"
+            data-target="#projects"
+          >
+            <span>🚀 Featured Apps</span>
+          </button>
+          <button
+            type="button"
+            class="dossier-cta-btn flex-1 rounded border border-green-ink/60 bg-green-tint/80 px-2.5 py-1.5 font-bold text-green-ink hover:bg-green-ink hover:text-white transition-colors cursor-pointer shadow-xs"
+            data-target="#research"
+          >
+            <span>🔬 IEEE Research</span>
+          </button>
+          <button
+            type="button"
+            class="dossier-cta-btn flex-1 rounded border border-line bg-paper px-2.5 py-1.5 font-bold text-ink hover:bg-ink hover:text-paper-light transition-colors cursor-pointer shadow-xs"
+            data-target="#top"
+          >
+            <span>⚡ Enter (2s)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Rubber Stamp that Slams Down firmly at 0.25s -->
+      <div
+        id="dossier-stamp"
+        class="pointer-events-none absolute right-3 sm:right-6 top-9 sm:top-11 rounded-lg border-4 border-dashed border-red-700 bg-red-700/10 px-3 py-1.5 text-center text-red-700 font-mono font-black uppercase tracking-widest shadow-md -rotate-12 transition-all duration-200 opacity-0 scale-140"
+      >
+        <span class="block text-[10px] sm:text-xs">★ VERIFIED ★</span>
+        <span class="block text-base sm:text-xl font-black leading-tight">ACCEPTED</span>
+        <span class="block text-[8.5px] sm:text-[9.5px] text-red-800">IEEE & SINTA 4</span>
+      </div>
+
+      <!-- Footer Progress Line -->
+      <div class="mt-4 pt-2 border-t border-[#a8936b]/40 pl-3 flex items-center justify-between text-[10.5px] font-mono text-[#6d5b39]">
+        <span class="flex items-center gap-1.5">
+          <span class="inline-block h-1.5 w-1.5 rounded-full bg-green-ink animate-ping"></span>
+          <span id="dossier-status-text">Initialising candidate dossier...</span>
+        </span>
+        <span id="dossier-progress-num">25%</span>
+      </div>
+
+      <!-- Loading Bar Strip -->
+      <div class="mt-1.5 h-1.5 w-full bg-[#d3be94] rounded-full overflow-hidden">
+        <div id="dossier-progress-bar" class="h-full bg-green-ink transition-all duration-300 w-1/4"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function setupDossierSplash() {
+    const splash = document.getElementById('dossier-splash');
+    if (!splash) return;
+    const splashEl = splash;
+    const skipBtn = document.getElementById('dossier-skip-btn');
+    const stamp = document.getElementById('dossier-stamp');
+    const sealTape = document.getElementById('dossier-seal-tape');
+    const sealText = document.getElementById('dossier-seal-text');
+    const innerContent = document.getElementById('dossier-inner-content');
+    const statusText = document.getElementById('dossier-status-text');
+    const progressNum = document.getElementById('dossier-progress-num');
+    const progressBar = document.getElementById('dossier-progress-bar');
+    const cover = document.getElementById('dossier-cover');
+    const ctaButtons = document.querySelectorAll<HTMLButtonElement>('.dossier-cta-btn');
+
+    // Ensure scroll lock is active
+    document.documentElement.classList.add('splash-active');
+    document.body.classList.add('splash-active');
+
+    let isDismissed = false;
+
+    function dismissSplash(targetAnchor = '', fast = false) {
+      if (isDismissed) return;
+      isDismissed = true;
+
+      // Smooth zoom-out transition into main website
+      if (cover) {
+        cover.style.transform = 'scale(1.08) translateY(-12px)';
+        cover.style.opacity = '0';
+        cover.style.transition = `transform ${fast ? '0.22s' : '0.42s'} cubic-bezier(0.16, 1, 0.3, 1), opacity ${fast ? '0.18s' : '0.35s'} ease`;
+      }
+
+      splashEl.style.opacity = '0';
+      splashEl.style.pointerEvents = 'none';
+      splashEl.style.transition = `opacity ${fast ? '0.22s' : '0.42s'} ease`;
+
+      setTimeout(() => {
+        document.documentElement.classList.remove('splash-active');
+        document.body.classList.remove('splash-active');
+        splashEl.remove();
+
+        // If a specific section CTA was clicked, scroll smoothly to it
+        if (targetAnchor && targetAnchor !== '#top') {
+          const targetEl = document.querySelector(targetAnchor);
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }, fast ? 240 : 440);
+    }
+
+    // Quick Jump CTA Buttons
+    ctaButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-target') || '#top';
+        dismissSplash(target, true);
+      });
+    });
+
+    // Skip Button & Keyboard Shortcuts (Esc, Space, Enter)
+    if (skipBtn) {
+      skipBtn.addEventListener('click', () => dismissSplash('#top', true));
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
+        dismissSplash('#top', true);
+      }
+    });
+
+    // ============================================================
+    // SNAPPY 2.2-SECOND CHOREOGRAPHY TIMELINE
+    // ============================================================
+
+    // 0.25s: STAMP SLAM
+    setTimeout(() => {
+      if (isDismissed) return;
+      if (stamp) {
+        stamp.classList.remove('opacity-0', 'scale-140');
+        stamp.classList.add('opacity-100', 'scale-100');
+        stamp.style.transform = 'rotate(-12deg) scale(1)';
+      }
+      if (cover) {
+        cover.style.transform = 'translateY(2px)';
+        setTimeout(() => { if (cover) cover.style.transform = 'none'; }, 100);
+      }
+      if (statusText) statusText.textContent = 'Peer-reviewed credentials verified ✓';
+      if (progressBar) progressBar.style.width = '55%';
+      if (progressNum) progressNum.textContent = '55%';
+    }, 250);
+
+    // 0.60s: SEAL UNLOCK & REVEAL INNER CONTENT
+    setTimeout(() => {
+      if (isDismissed) return;
+      if (sealTape) {
+        sealTape.classList.remove('bg-red-700', 'border-red-900');
+        sealTape.classList.add('bg-emerald-700', 'border-emerald-900');
+      }
+      if (sealText) {
+        sealText.textContent = 'ACCESS GRANTED · CANDIDATE READY ✓';
+      }
+      if (innerContent) {
+        innerContent.classList.remove('opacity-0');
+        innerContent.classList.add('opacity-100');
+      }
+      if (statusText) statusText.textContent = 'Unfolding engineering portfolio...';
+      if (progressBar) progressBar.style.width = '85%';
+      if (progressNum) progressNum.textContent = '85%';
+    }, 600);
+
+    // 1.30s: 100% READY
+    setTimeout(() => {
+      if (isDismissed) return;
+      if (statusText) statusText.textContent = 'Welcome! Entering portfolio...';
+      if (progressBar) progressBar.style.width = '100%';
+      if (progressNum) progressNum.textContent = '100%';
+    }, 1300);
+
+    // 1.70s: DISMISS PORTAL (Finishes at ~2.2s)
+    setTimeout(() => {
+      if (isDismissed) return;
+      dismissSplash('#top', false);
+    }, 1700);
+  }
+
+  // Run as soon as DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupDossierSplash);
+  } else {
+    setupDossierSplash();
+  }
+</script>

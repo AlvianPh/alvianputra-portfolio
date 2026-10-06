@@ -1,0 +1,250 @@
+---
+/**
+ * ProjectDossierModal — Pop-up modal berkas rekayasa perangkat lunak (Engineering Dossier).
+ * Terbuka saat folder proyek diklik dengan animasi folder membuka (folder unfold).
+ * Dilengkapi aksesibilitas lengkap (focus trap, Escape key, backdrop click).
+ */
+import type { Project } from '@/data/types';
+import StickyNote from './ui/StickyNote.astro';
+
+interface Props {
+  projects: Project[];
+}
+
+const { projects } = Astro.props;
+---
+
+<dialog id="project-dossier-modal" class="dossier-dialog" aria-labelledby="dossier-title">
+  <!-- Manila Folder Unfold Wrapper -->
+  <div class="relative rounded-lg border-2 border-line bg-paper-light p-6 sm:p-8 md:p-10 shadow-2xl">
+    
+    <!-- Top Folder Tab Header -->
+    <div class="flex flex-wrap items-center justify-between gap-3 border-b-2 border-line pb-4 mb-6">
+      <div class="flex items-center gap-2.5">
+        <span class="flex h-7 w-7 items-center justify-center rounded border border-blue-ink/30 bg-blue-tint font-mono text-sm text-blue-ink">
+          📁
+        </span>
+        <div>
+          <span id="dossier-folder-id" class="font-mono text-[11px] font-bold tracking-widest text-blue-ink uppercase">
+            BERKAS PROYEK #01
+          </span>
+          <span id="dossier-context-tag" class="ml-2 rounded bg-paper px-2 py-0.5 font-mono text-xs text-ink-soft border border-line">
+            Mobile App
+          </span>
+        </div>
+      </div>
+
+      <!-- Close Button -->
+      <button
+        id="close-dossier-btn"
+        type="button"
+        class="inline-flex min-h-9 items-center gap-1.5 rounded border border-ink/20 bg-paper px-3 py-1 font-mono text-xs font-bold text-ink shadow-xs hover:border-ink hover:bg-paper-dark transition-all cursor-pointer"
+        aria-label="Tutup berkas proyek"
+      >
+        <span>✕</span>
+        <span>Tutup Berkas (Esc)</span>
+      </button>
+    </div>
+
+    <!-- Dossier Content Grid: 2 Columns on Desktop -->
+    <div class="grid gap-8 lg:grid-cols-12 items-start">
+      
+      <!-- Sisi Kiri: Mockup Device / Browser Peeking Out with Tape -->
+      <div class="lg:col-span-5 space-y-4">
+        <div class="desk relative flex items-center justify-center rounded-lg border border-line p-6 shadow-inner min-h-[260px] sm:min-h-[300px]">
+          <!-- Device Mockup Container -->
+          <div id="dossier-device-container" class="relative max-w-full flex justify-center">
+            <!-- Dynamically populated via JS -->
+            <img
+              id="dossier-image"
+              src=""
+              alt=""
+              class="max-h-72 w-auto object-contain rounded drop-shadow-md"
+            />
+          </div>
+        </div>
+
+        <!-- Sticky Note Arsitektur -->
+        <StickyNote color="blue" tilt="slight-left" title="engineering architecture" class="w-full text-xs shadow-xs">
+          <p id="dossier-arch-note" class="text-ink leading-relaxed">
+            Emphasizes offline-first data resilience, snappy UX, and maintainable modular architecture.
+          </p>
+        </StickyNote>
+      </div>
+
+      <!-- Sisi Kanan: Penjelasan Lengkap (Problem, What I Built, Highlights, Stack, Links) -->
+      <div class="lg:col-span-7 space-y-5">
+        <div>
+          <div class="flex items-center gap-2 mb-1.5">
+            <span class="rounded bg-blue-tint px-2 py-0.5 font-mono text-[10px] font-bold text-blue-ink uppercase">
+              Engineering Spec
+            </span>
+            <span id="dossier-status-stamp" class="font-mono text-[10px] font-bold text-green-ink uppercase border border-green-ink/30 px-1.5 py-0.5 rounded">
+              Shipped Code
+            </span>
+          </div>
+
+          <h2 id="dossier-title" class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink">
+            Project Title
+          </h2>
+          <p id="dossier-purpose" class="mt-1 text-sm font-medium text-blue-ink leading-relaxed">
+            Project Purpose Statement
+          </p>
+        </div>
+
+        <!-- What I Built Narrative -->
+        <div>
+          <h4 class="font-mono text-xs font-bold tracking-wider text-ink-soft uppercase mb-1">
+            Solution & Architecture:
+          </h4>
+          <p id="dossier-description" class="text-sm sm:text-base text-ink-soft leading-relaxed">
+            Project description narrative.
+          </p>
+        </div>
+
+        <!-- Engineering Highlights Checklist -->
+        <div class="rounded-md border border-line bg-paper/60 p-4">
+          <h4 class="font-mono text-xs font-bold tracking-wider text-ink-soft uppercase mb-2.5">
+            Key Engineering Highlights:
+          </h4>
+          <ul id="dossier-highlights-list" class="space-y-1.5 text-xs sm:text-sm text-ink">
+            <!-- Dynamically populated -->
+          </ul>
+        </div>
+
+        <!-- Tech Stack Sticker Chips -->
+        <div>
+          <h4 class="font-mono text-[11px] font-bold tracking-wider text-ink-soft uppercase mb-2">
+            Technology Stack:
+          </h4>
+          <div id="dossier-stack-container" class="flex flex-wrap gap-1.5">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Action Links -->
+        <div class="pt-4 border-t border-dashed border-line flex flex-wrap items-center gap-3">
+          <div id="dossier-links-container" class="flex flex-wrap gap-3">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<!-- Embedded Project Dataset -->
+<script id="projects-data" type="application/json" set:html={JSON.stringify(projects)} />
+
+<script>
+  // Client script handling dialog folder unfolding and population
+  document.addEventListener('DOMContentLoaded', () => {
+    const dialog = document.getElementById('project-dossier-modal') as HTMLDialogElement | null;
+    const closeBtn = document.getElementById('close-dossier-btn');
+    const dataEl = document.getElementById('projects-data');
+
+    if (!dialog || !dataEl) return;
+
+    let projects: any[] = [];
+    try {
+      projects = JSON.parse(dataEl.textContent || '[]');
+    } catch (e) {
+      console.error('Failed to parse projects data', e);
+    }
+
+    const folderIdEl = document.getElementById('dossier-folder-id');
+    const contextTagEl = document.getElementById('dossier-context-tag');
+    const titleEl = document.getElementById('dossier-title');
+    const purposeEl = document.getElementById('dossier-purpose');
+    const descEl = document.getElementById('dossier-description');
+    const highlightsListEl = document.getElementById('dossier-highlights-list');
+    const stackContainerEl = document.getElementById('dossier-stack-container');
+    const linksContainerEl = document.getElementById('dossier-links-container');
+    const imgEl = document.getElementById('dossier-image') as HTMLImageElement | null;
+
+    function openDossier(index: number) {
+      const project = projects[index];
+      if (!project || !dialog) return;
+
+      const numStr = String(index + 1).padStart(2, '0');
+      if (folderIdEl) folderIdEl.textContent = `PROJECT DOSSIER #${numStr}`;
+      if (contextTagEl) contextTagEl.textContent = project.context || 'Engineering';
+      if (titleEl) titleEl.textContent = project.name;
+      if (purposeEl) purposeEl.textContent = project.purpose || project.description;
+      if (descEl) descEl.textContent = project.description;
+
+      if (imgEl) {
+        imgEl.src = project.image;
+        imgEl.alt = `Screenshot ${project.name}`;
+      }
+
+      // Populate highlights
+      if (highlightsListEl) {
+        highlightsListEl.innerHTML = '';
+        const highlights = project.highlights || [
+          'Clean, modular architecture designed for maintainability',
+          'Resilient API integration and robust error handling',
+          'Accessible, responsive, and performance-tuned UI',
+        ];
+        highlights.forEach((h: string) => {
+          const li = document.createElement('li');
+          li.className = 'flex items-start gap-2';
+          li.innerHTML = `<span class="text-blue-ink font-bold shrink-0">✓</span><span>${h}</span>`;
+          highlightsListEl.appendChild(li);
+        });
+      }
+
+      // Populate stack tags
+      if (stackContainerEl) {
+        stackContainerEl.innerHTML = '';
+        (project.stack || []).forEach((t: string) => {
+          const span = document.createElement('span');
+          span.className = 'inline-flex items-center rounded border border-line bg-paper px-2.5 py-1 font-mono text-xs font-semibold text-ink-soft shadow-2xs';
+          span.textContent = t;
+          stackContainerEl.appendChild(span);
+        });
+      }
+
+      // Populate links
+      if (linksContainerEl) {
+        linksContainerEl.innerHTML = '';
+        (project.links || []).forEach((link: { label: string; href: string }) => {
+          const a = document.createElement('a');
+          a.href = link.href;
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.className = 'btn btn-primary inline-flex items-center gap-1.5';
+          a.innerHTML = `<span>${link.label}</span><span aria-hidden="true">↗</span>`;
+          linksContainerEl.appendChild(a);
+        });
+      }
+
+      dialog.showModal();
+    }
+
+    // Bind all folder cards or trigger buttons
+    document.querySelectorAll('[data-open-dossier]').forEach((trigger) => {
+      trigger.addEventListener('click', (e) => {
+        // Prevent opening if user clicked a direct external link inside the card
+        if ((e.target as HTMLElement).closest('a[target="_blank"]')) {
+          return;
+        }
+        const indexStr = trigger.getAttribute('data-open-dossier');
+        const index = parseInt(indexStr || '0', 10);
+        openDossier(index);
+      });
+    });
+
+    // Close on button click
+    closeBtn?.addEventListener('click', () => {
+      dialog.close();
+    });
+
+    // Close on clicking backdrop
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) {
+        dialog.close();
+      }
+    });
+  });
+</script>

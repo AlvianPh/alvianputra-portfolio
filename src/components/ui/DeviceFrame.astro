@@ -1,0 +1,63 @@
+---
+/**
+ * Mockup HP sederhana atau Browser Desktop untuk screenshot aplikasi.
+ * Jika `src` masih placeholder, tampil kotak placeholder di dalam layar.
+ */
+import { isPlaceholder } from '@/lib/placeholder';
+
+interface Props {
+  src: string;
+  alt: string;
+  type?: 'mobile' | 'desktop';
+  class?: string;
+}
+
+const { src, alt, type = 'mobile', class: className } = Astro.props;
+const missing = isPlaceholder(src);
+---
+
+{
+  type === 'desktop' ? (
+    <div class:list={['browser-frame', className]}>
+      <div class="browser-header">
+        <span class="browser-dot bg-[#e06c75]/80" />
+        <span class="browser-dot bg-[#e5c07b]/80" />
+        <span class="browser-dot bg-[#98c379]/80" />
+        <span class="ml-2 h-2 w-16 rounded-full bg-line/60 sm:w-24" />
+      </div>
+      <div class="browser-screen">
+        {missing ? (
+          <div class="flex h-full w-full items-center justify-center p-3 text-center font-mono text-xs leading-snug text-ink-soft">
+            {src || '[SCREENSHOT]'}
+          </div>
+        ) : (
+          <img
+            src={src}
+            alt={alt}
+            loading="lazy"
+            decoding="async"
+            class="frame-img h-full w-full object-cover object-top"
+          />
+        )}
+      </div>
+    </div>
+  ) : (
+    <div class:list={['device', className]}>
+      <div class="device-screen">
+        {missing ? (
+          <div class="flex h-full w-full items-center justify-center p-3 text-center font-mono text-xs leading-snug text-ink-soft">
+            {src || '[SCREENSHOT]'}
+          </div>
+        ) : (
+          <img
+            src={src}
+            alt={alt}
+            loading="lazy"
+            decoding="async"
+            class="frame-img h-full w-full object-cover object-top"
+          />
+        )}
+      </div>
+    </div>
+  )
+}

@@ -1,0 +1,226 @@
+---
+/**
+ * SiteHeader — Header Navigasi Buku Agenda / Binder Editorial:
+ * - Kiri: Logo bulat avatar Alvian (disiapkan untuk animasi/foto profil) dengan status dot pin.
+ * - Tengah: Tab binder fisik dengan icon SVG line monokrom yang tajam & dinamis (berubah warna bersama tab).
+ * - Kanan: 3 candy dots, tombol • CONTACT, dan tiket RESUME ↗.
+ */
+import Container from './Container.astro';
+import { portfolio } from '@/data/portfolio';
+
+const { profile } = portfolio;
+
+const navItems = [
+  { id: 'top', label: 'Home', type: 'home', href: '#top' },
+  { id: 'about', label: 'About', type: 'about', href: '#about' },
+  { id: 'projects', label: 'Works', type: 'works', href: '#projects', badge: '6' },
+  { id: 'capabilities', label: 'Stack', type: 'stack', href: '#capabilities' },
+  { id: 'experience', label: 'Exp', type: 'exp', href: '#experience' },
+  { id: 'research', label: 'Research', type: 'research', href: '#research' },
+];
+---
+
+<header id="site-header" class="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur-md transition-shadow duration-200">
+  <!-- Subtle Binder Perforation Strip -->
+  <div class="h-1 w-full bg-gradient-to-r from-blue-ink/20 via-orange/25 to-green-ink/20" aria-hidden="true"></div>
+
+  <Container class="flex h-(--header-h) items-center justify-between gap-3 sm:gap-6">
+    
+    <!-- BRAND: FOTO / LOGO BULATAN AVATAR (Prepared for Animated Avatar) -->
+    <a
+      href="#top"
+      class="group relative inline-flex items-center shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-ink rounded-full"
+      aria-label="Alvian Putra Hardiadi — Back to top"
+      title="Alvian Putra Hardiadi — Back to top"
+    >
+      <div class="relative flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border-2 border-line bg-paper-dark ring-2 ring-blue-ink/20 group-hover:ring-blue-ink/60 group-hover:scale-105 transition-all overflow-hidden shadow-xs">
+        <img
+          src={profile.photo}
+          alt={profile.name}
+          class="h-full w-full object-cover rounded-full"
+          loading="eager"
+        />
+      </div>
+      <!-- Pin Status Dot Siap Kerja -->
+      <span
+        class="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-emerald-500 border-2 border-paper ring-1 ring-emerald-400/50 shadow-2xs"
+        title="Status: Available for Full-Time Roles"
+        aria-hidden="true"
+      ></span>
+    </a>
+
+    <!-- CENTER: PHYSICAL BINDER NAV TABS (Clean Vector Line Icons) -->
+    <nav
+      id="main-nav"
+      aria-label="Main Navigation"
+      class="min-w-0 flex-1 overflow-x-auto overscroll-x-contain py-1 scrollbar-none [mask-image:linear-gradient(to_right,black_90%,transparent)] md:[mask-image:none]"
+    >
+      <ul class="flex w-max items-center gap-1 sm:gap-1.5 mx-auto">
+        {navItems.map((item, idx) => (
+          <li>
+            <a
+              href={item.href}
+              class={`binder-tab group ${idx === 0 ? 'active' : ''}`}
+              data-nav-id={item.id}
+            >
+              <!-- Vector Line Icon Component -->
+              <span class="inline-flex items-center justify-center opacity-75 group-hover:opacity-100 transition-opacity" aria-hidden="true">
+                {item.type === 'home' && (
+                  <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                  </svg>
+                )}
+                {item.type === 'about' && (
+                  <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="8" r="5"/>
+                    <path d="M20 21a8 8 0 0 0-16 0"/>
+                  </svg>
+                )}
+                {item.type === 'works' && (
+                  <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/>
+                  </svg>
+                )}
+                {item.type === 'stack' && (
+                  <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="16 18 22 12 16 6"/>
+                    <polyline points="8 6 2 12 8 18"/>
+                  </svg>
+                )}
+                {item.type === 'exp' && (
+                  <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="20" height="14" x="2" y="7" rx="2"/>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                  </svg>
+                )}
+                {item.type === 'research' && (
+                  <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10 2v7.31"/>
+                    <path d="M14 9.3V2"/>
+                    <path d="M8.5 2h7"/>
+                    <path d="M14 9.3a6.5 6.5 0 1 1-4 0"/>
+                  </svg>
+                )}
+              </span>
+
+              <span>{item.label}</span>
+
+              {item.badge && (
+                <span class="ml-0.5 rounded-full bg-blue-ink/15 px-1.5 py-0.2 font-mono text-[9px] font-bold text-blue-ink">
+                  {item.badge}
+                </span>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <!-- RIGHT: CANDY STATUS DOTS + CONTACT + RESUME -->
+    <div class="flex items-center gap-2.5 sm:gap-3.5 shrink-0">
+      
+      <!-- 3 Binder Candy Dots (Exact Reference Image Touch) -->
+      <div class="hidden lg:flex items-center gap-1.5 border-r border-line pr-3.5" title="Status: Available for Full-Time & High-Impact Roles">
+        <span class="candy-dot bg-emerald-500 relative">
+          <span class="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-60"></span>
+        </span>
+        <span class="candy-dot bg-amber-400"></span>
+        <span class="candy-dot bg-rose-400"></span>
+      </div>
+
+      <!-- Quick Contact Tab -->
+      <a
+        href="#contact"
+        class="binder-tab !px-2.5 sm:!px-3 text-xs"
+        data-nav-id="contact"
+        title="Open Contact Section"
+      >
+        <span class="inline-flex items-center" aria-hidden="true">
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="20" height="16" x="2" y="4" rx="2"/>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+        </span>
+        <span class="hidden sm:inline">CONTACT</span>
+      </a>
+
+      <!-- Resume Ticket Pill -->
+      <a
+        href={profile.cvUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex min-h-7 sm:min-h-8 items-center gap-1 rounded border border-blue-ink/35 bg-blue-tint/50 px-2.5 sm:px-3 py-1 font-mono text-[11px] sm:text-xs font-bold text-blue-ink shadow-2xs hover:bg-blue-ink hover:text-paper-light hover:border-blue-ink transition-all"
+        title="Open Alvian's Resume / CV"
+      >
+        <span>CV</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+
+  </Container>
+</header>
+
+<script>
+  // Client script to dynamically update active tab on scroll
+  document.addEventListener('DOMContentLoaded', () => {
+    const navTabs = document.querySelectorAll<HTMLAnchorElement>('.binder-tab[data-nav-id]');
+    if (!navTabs.length) return;
+
+    const sections = [
+      { id: 'top', el: document.body },
+      { id: 'about', el: document.getElementById('about') },
+      { id: 'projects', el: document.getElementById('projects') },
+      { id: 'capabilities', el: document.getElementById('capabilities') },
+      { id: 'experience', el: document.getElementById('experience') },
+      { id: 'research', el: document.getElementById('research') },
+      { id: 'contact', el: document.getElementById('contact') },
+    ];
+
+    function setActiveTab(id: string) {
+      navTabs.forEach((tab) => {
+        if (tab.getAttribute('data-nav-id') === id) {
+          tab.classList.add('active');
+          tab.setAttribute('aria-current', 'page');
+        } else {
+          tab.classList.remove('active');
+          tab.removeAttribute('aria-current');
+        }
+      });
+    }
+
+    // Scroll spy with scroll position listener
+    let ticking = false;
+
+    function onScroll() {
+      const scrollPos = window.scrollY + 160;
+      let activeSectionId = 'top';
+
+      for (const s of sections) {
+        if (!s.el || s.id === 'top') continue;
+        const rect = s.el.getBoundingClientRect();
+        const top = rect.top + window.scrollY;
+        if (scrollPos >= top) {
+          activeSectionId = s.id;
+        }
+      }
+
+      // If at bottom of page, highlight contact
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
+        activeSectionId = 'contact';
+      }
+
+      setActiveTab(activeSectionId);
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(onScroll);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Initial check
+    onScroll();
+  });
+</script>

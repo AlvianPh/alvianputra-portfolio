@@ -1,0 +1,163 @@
+/*
+ * Global styles & design tokens — Engineer's Notebook.
+ * Tahap 1: warna, tipografi, spacing, container, dan base responsive.
+ * Komponen scrapbook (paper, tape, note, dll) ada di scrapbook.css.
+ */
+@import 'tailwindcss';
+@import './scrapbook.css';
+
+/* ---------- Design tokens (jadi utility Tailwind: bg-paper, text-ink, font-hand, dll) ---------- */
+@theme {
+  /* Kertas */
+  --color-paper: #f6f0e2; /* background utama — warm cream */
+  --color-paper-light: #fbf8f0; /* kartu / permukaan terang */
+  --color-paper-dark: #ece3cf; /* permukaan sekunder */
+  --color-line: #ddd2bb; /* garis buku / border */
+
+  /* Tinta */
+  --color-ink: #2a2926; /* charcoal — teks utama (12.8:1 di atas paper) */
+  --color-ink-soft: #5a554c; /* teks sekunder (6.5:1) */
+
+  /* Aksen muted — UNTUK DEKORASI/FILL saja, kontras teks < 4.5:1 */
+  --color-green: #7a9a7e;
+  --color-blue: #7591ad;
+  --color-orange: #d39a5f;
+
+  /* Aksen versi teks — aman untuk teks (>= 4.5:1 di atas paper) */
+  --color-green-ink: #3f5e47;
+  --color-blue-ink: #3a5878;
+  --color-orange-ink: #8c5220;
+
+  /* Tipografi */
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-hand: 'Caveat', 'Segoe Print', 'Bradley Hand', cursive; /* hanya untuk anotasi/label */
+  --font-mono: ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace;
+
+  /* Tint lembut untuk sticky note / highlight (teks ink tetap >= 10:1) */
+  --color-green-tint: #dde7d6;
+  --color-blue-tint: #d9e3ec;
+  --color-orange-tint: #f3dfc2;
+
+  /* Bayangan kertas */
+  --shadow-paper: 0 1px 2px rgb(42 41 38 / 0.06), 0 4px 12px rgb(42 41 38 / 0.06);
+  --shadow-paper-lift: 0 2px 4px rgb(42 41 38 / 0.08), 0 12px 28px rgb(42 41 38 / 0.12);
+  --shadow-note: 0 1px 1px rgb(42 41 38 / 0.08), 0 6px 14px -4px rgb(42 41 38 / 0.18);
+}
+
+/* ---------- Layout tokens (non-Tailwind) ---------- */
+:root {
+  --container-max: 72rem;
+  --gutter: clamp(1rem, 4vw, 2rem); /* 16px di mobile → 32px di desktop */
+  --section-y: clamp(2.5rem, 5vw, 4rem); /* jarak vertikal antar section lebih padat & proporsional */
+  --header-h: 4rem;
+
+  /* Rotasi kertas: di mobile dikurangi setengah */
+  --tilt-scale: 0.5;
+  --ease-paper: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --tilt-scale: 1;
+  }
+}
+
+/* ---------- Utilities ---------- */
+@utility container-page {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@utility section-y {
+  padding-block: var(--section-y);
+}
+
+/* ---------- Base ---------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-h) + 1rem); /* anchor tidak ketutup header */
+    -webkit-text-size-adjust: 100%;
+    overflow-x: clip; /* dekorasi (tape, rotasi) tidak boleh bikin scroll horizontal */
+  }
+
+  body {
+    min-height: 100dvh;
+    overflow-x: clip;
+    background-color: var(--color-paper);
+    /* Tekstur kertas: noise SVG sangat halus (< 1 KB, tanpa request tambahan) */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.3 0 0 0 0 0.22 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.7;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--color-ink);
+    line-height: 1.22;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+    text-wrap: balance;
+  }
+
+  h1 {
+    font-size: clamp(2.25rem, 6vw, 4rem);
+  }
+  h2 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+  }
+  h3 {
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-underline-offset: 0.2em;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-orange) 45%, transparent);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-blue-ink);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  img,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

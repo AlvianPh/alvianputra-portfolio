@@ -1,0 +1,33 @@
+---
+/**
+ * Kerangka section: anchor id, SectionLabel (tulisan tangan), dan judul.
+ * Isi section dikirim lewat <slot />.
+ */
+import Container from './Container.astro';
+import SectionLabel from './ui/SectionLabel.astro';
+import type { Accent } from '@/lib/ui';
+
+interface Props {
+  id: string;
+  title: string;
+  /** Nomor kecil, mis. "02". */
+  index?: string;
+  /** Label tulisan tangan, mis. "research notes". */
+  label?: string;
+  labelColor?: Accent;
+  class?: string;
+}
+
+const { id, title, index, label, labelColor = 'green', class: className } = Astro.props;
+const headingId = `${id}-title`;
+---
+
+<section id={id} aria-labelledby={headingId} class:list={['section-y', className]}>
+  <Container>
+    <header class="mb-8 md:mb-12">
+      {label && <SectionLabel index={index} color={labelColor} class="mb-3">{label}</SectionLabel>}
+      <h2 id={headingId}>{title}</h2>
+    </header>
+    <slot />
+  </Container>
+</section>

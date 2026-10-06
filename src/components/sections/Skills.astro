@@ -1,0 +1,341 @@
+---
+/**
+ * Engineering Capabilities — Section 03
+ * Scrapbook Pinboard Desk · Tilted Paper Cutouts & Stacked Tech Inventory:
+ * - Didesain seperti meja kerja scrapbook nyata: kertas-kertas bertumpuk dengan sudut miring berbeda, selotip washi tape warna-warni, klip kertas, stempel arsip, dan stiker teknologi interaktif.
+ * - Saat di-hover, kertas otomatis tegak dan terangkat halus (lift effect) untuk dibaca.
+ * - Memuat kartu tiket khusus "Verified Licenses & Certifications" yang terhubung langsung ke sertifikat di LinkedIn Alvian.
+ */
+import Section from '@/components/Section.astro';
+import Stamp from '@/components/ui/Stamp.astro';
+import HandNote from '@/components/ui/HandNote.astro';
+import { portfolio } from '@/data/portfolio';
+
+const { contact, certificates = [] } = portfolio;
+const linkedInUrl = contact.links.find((l) => l.label === 'LinkedIn')?.href || 'https://www.linkedin.com';
+---
+
+<div id="skills" class="sr-only" aria-hidden="true"></div>
+
+<Section
+  id="capabilities"
+  title="Engineering Capabilities"
+  index="03"
+  label="scrapbook pinboard desk"
+  labelColor="blue"
+  class="border-t border-line"
+>
+  <!-- Section Intro -->
+  <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <div class="max-w-2xl space-y-1.5">
+      <div class="flex items-center gap-2">
+        <span class="font-mono text-xs font-bold tracking-widest text-blue-ink uppercase">
+          Technical Inventory & Tooling
+        </span>
+        <span class="text-ink-soft">·</span>
+        <HandNote color="blue" size="sm">hover paper to lift & inspect</HandNote>
+      </div>
+      <p class="text-base sm:text-lg text-ink-soft leading-relaxed">
+        A tactile pinboard inventory of production-tested mobile frameworks, web architectures, machine learning toolkits, and verified licenses.
+      </p>
+    </div>
+
+    <Stamp color="blue">Production Stack</Stamp>
+  </div>
+
+  <!-- ============================================================
+       SCRAPBOOK DESK: TILTED & STACKED PAPER CUTOUTS
+       ============================================================ -->
+  <div class="space-y-10">
+    
+    <!-- ROW 1: PRIMARY POWERHOUSES (Mobile & Web) -->
+    <div class="grid gap-8 lg:grid-cols-12 items-stretch">
+      
+      <!-- PAPER 1: MOBILE ENGINEERING DOSSIER (Tilted -2.5deg, Blue Washi Tape) -->
+      <article
+        class="paper-cutout paper-lined lg:col-span-6 p-6 sm:p-8 transform -rotate-2 sm:-rotate-2 hover:rotate-0 transition-transform duration-300 relative border-blue-ink/30"
+        aria-labelledby="skills-mobile-heading"
+      >
+        <!-- Washi tape at top left -->
+        <span class="tape tape-top-left" style="--tape-color: #3b82f6;" aria-hidden="true"></span>
+
+        <!-- Cute sleeping cat perched on Mobile Core Folder -->
+        <div class="cat-sleeping absolute -top-5 right-6 z-10 select-none pointer-events-none" title="Zzz... sleeping on the Flutter docs">
+          <svg class="h-8 w-10 drop-shadow-xs" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 35 C10 20, 25 15, 45 20 C55 24, 55 38, 48 42 C40 46, 15 46, 10 35 Z" fill="#ffffff" stroke="#231f20" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M12 34 C12 22, 25 17, 43 22 C52 26, 52 36, 46 40 C38 44, 16 44, 12 34 Z" fill="#FFFDF8"/>
+            <polygon points="16,22 22,17 24,24" fill="#FCA5A5" stroke="#231f20" stroke-width="1.5"/>
+            <polygon points="26,20 32,17 33,23" fill="#FCA5A5" stroke="#231f20" stroke-width="1.5"/>
+            <path d="M19 28 Q23 31 27 28" stroke="#231f20" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <ellipse cx="38" cy="30" rx="6" ry="4" fill="#60A5FA" opacity="0.4"/>
+            <path d="M48 38 C54 36, 54 28, 48 26" stroke="#231f20" stroke-width="2" stroke-linecap="round" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Header Strip -->
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-line pb-3 mb-5">
+          <div class="flex items-center gap-2">
+            <span class="font-mono text-[11px] font-bold tracking-widest text-blue-ink uppercase">
+              📁 FOLDER #01 · MOBILE CORE
+            </span>
+          </div>
+          <Stamp color="blue">Primary</Stamp>
+        </div>
+
+        <h3 id="skills-mobile-heading" class="text-2xl sm:text-3xl font-black tracking-tight text-ink mb-2">
+          Flutter & Dart Architecture
+        </h3>
+        <p class="text-xs sm:text-sm text-ink-soft font-sans mb-6">
+          Building resilient, offline-first cross-platform applications with native performance and responsive UI.
+        </p>
+
+        <!-- Cutout Sticker Pills -->
+        <div class="flex flex-wrap gap-2 mb-6">
+          <span class="inline-flex items-center gap-1.5 rounded-md border border-blue-ink/40 bg-blue-tint/80 px-3 py-1 font-mono text-xs font-bold text-blue-ink shadow-2xs rotate-[-1deg] hover:scale-105 transition-transform">
+            <span>⚡</span> Flutter SDK
+          </span>
+          <span class="inline-flex items-center gap-1.5 rounded-md border border-blue-ink/40 bg-blue-tint/80 px-3 py-1 font-mono text-xs font-bold text-blue-ink shadow-2xs rotate-[1.5deg] hover:scale-105 transition-transform">
+            <span>🎯</span> Dart
+          </span>
+          <span class="inline-flex items-center gap-1.5 rounded-md border border-line bg-paper px-3 py-1 font-mono text-xs font-semibold text-ink shadow-2xs rotate-[-1.5deg] hover:scale-105 transition-transform">
+            <span>🌊</span> Riverpod State Management
+          </span>
+          <span class="inline-flex items-center gap-1.5 rounded-md border border-line bg-paper px-3 py-1 font-mono text-xs font-semibold text-ink shadow-2xs rotate-[1deg] hover:scale-105 transition-transform">
+            <span>💾</span> SQLite / Drift (Local DB)
+          </span>
+          <span class="inline-flex items-center gap-1.5 rounded-md border border-line bg-paper px-3 py-1 font-mono text-xs font-semibold text-ink shadow-2xs rotate-[-1deg] hover:scale-105 transition-transform">
+            <span>🔗</span> RESTful API Client
+          </span>
+          <span class="inline-flex items-center gap-1.5 rounded-md border border-line bg-paper px-3 py-1 font-mono text-xs font-semibold text-ink shadow-2xs rotate-[2deg] hover:scale-105 transition-transform">
+            <span>📸</span> Camera & Frame Pipelines
+          </span>
+        </div>
+
+        <!-- Sticky Note Bottom Tape -->
+        <div class="rounded border border-blue-ink/20 bg-blue-tint/40 p-3 text-xs text-blue-ink">
+          <strong class="font-bold">Core Focus:</strong> Zero-latency local data caching, reactive unidirectional state streams, and cross-platform UI precision.
+        </div>
+      </article>
+
+      <!-- PAPER 2: WEB SYSTEMS & BACKEND (Tilted +2deg, Orange Washi Tape) -->
+      <article
+        class="paper-cutout paper-lined lg:col-span-6 p-6 sm:p-8 transform rotate-2 sm:rotate-2 hover:rotate-0 transition-transform duration-300 relative border-orange-ink/30"
+        aria-labelledby="skills-web-heading"
+      >
+        <!-- Washi tape at top right -->
+        <span class="tape tape-top-right" style="--tape-color: #f97316;" aria-hidden="true"></span>
+
+        <!-- Header Strip -->
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-line pb-3 mb-5">
+          <div class="flex items-center gap-2">
+            <span class="font-mono text-[11px] font-bold tracking-widest text-orange-ink uppercase">
+              📁 FOLDER #02 · WEB SYSTEMS
+            </span>
+          </div>
+          <Stamp color="orange">Primary</Stamp>
+        </div>
+
+        <h3 id="skills-web-heading" class="text-2xl sm:text-3xl font-black tracking-tight text-ink mb-2">
+          Laravel & Relational Systems
+        </h3>
+        <p class="text-xs sm:text-sm text-ink-soft font-sans mb-6">
+          Architecting robust web platforms with normalized relational databases, clean Blade templates, and RESTful APIs.
+        </p>
+
+        <!-- Cutout Sticker Pills -->
+        <div class="flex flex-wrap gap-2 mb-6">
+          <span class="inline-flex items-center gap-1.5 rounded-md border border-orange-ink/40 bg-orange-tint/80 px-3 py-1 font-mono text-xs font-bold text-orange-ink shadow-2xs rotate-[1.5deg] hover:scale-105 transition-transform">
+            <span>🔥</span> Laravel MVC
+          </span>
+          <span class="inline-flex items-center gap-1.5 rounded-md border border-orange-ink/40 bg-orange-tint/80 px-3 py-1 font-mono text-xs font-bold text-orange-ink shadow-2xs rotate-[-1deg] hover:scale-105 transition-transform">
+            <span>🐘</span> PHP 8.x
+          </span>
+          <span class="inline-flex items-center gap-1.5 rounded-md border border-line bg-paper px-3 py-1 font-mono text-xs font-semibold text-ink shadow-2xs rotate-[2deg] hover:scale-105 transition-transform">
+            <span>🐬</span> MySQL Relational DB
+          </span>
+          <span class="inline-flex items-center gap-1.5 rounded-md border border-line bg-paper px-3 py-1 font-mono text-xs font-semibold text-ink shadow-2xs rotate-[-1.5deg] hover:scale-105 transition-transform">
+            <span>🧩</span> Blade Component Architecture
+          </span>
+          <span class="inline-flex items-center gap-1.5 rounded-md border border-line bg-paper px-3 py-1 font-mono text-xs font-semibold text-ink shadow-2xs rotate-[1deg] hover:scale-105 transition-transform">
+            <span>🎨</span> Tailwind CSS
+          </span>
+          <span class="inline-flex items-center gap-1.5 rounded-md border border-line bg-paper px-3 py-1 font-mono text-xs font-semibold text-ink shadow-2xs rotate-[-2deg] hover:scale-105 transition-transform">
+            <span>🛡️</span> Spatie Role Permissions (RBAC)
+          </span>
+        </div>
+
+        <!-- Sticky Note Bottom Tape -->
+        <div class="rounded border border-orange-ink/20 bg-orange-tint/40 p-3 text-xs text-orange-ink">
+          <strong class="font-bold">Core Focus:</strong> Strict database normalization, secure authentication workflows, audit trails, and modular Blade layouts.
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Desk Strip: Fun Scrapbook Badges & Mascot Notes -->
+    <div class="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-dashed border-line/80 bg-paper-light/60 px-4 py-3">
+      <div class="flex items-center gap-2">
+        <span class="text-sm">🐾</span>
+        <span class="font-hand text-base text-ink font-bold">Desk rule:</span>
+        <span class="font-mono text-xs text-ink-soft">Test locally before shipping to production</span>
+      </div>
+
+      <!-- Playful Mini Desk Stickers -->
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="inline-flex items-center gap-1 rounded bg-amber-100 border border-amber-200 px-2 py-0.5 font-mono text-[10px] font-bold text-amber-800 rotate-[-1deg]" title="Whiskers-Approved Code Standards">
+          <span>🐱</span> Cat Tested
+        </span>
+        <span class="inline-flex items-center gap-1 rounded bg-blue-100 border border-blue-200 px-2 py-0.5 font-mono text-[10px] font-bold text-blue-800 rotate-[1.5deg]" title="High architectural reliability">
+          <span>⚡</span> Zero Crash Standard
+        </span>
+        <span class="inline-flex items-center gap-1 rounded bg-green-100 border border-green-200 px-2 py-0.5 font-mono text-[10px] font-bold text-green-800 rotate-[-1deg]" title="Production test coverage">
+          <span>🛡️</span> Verified CI/CD
+        </span>
+      </div>
+    </div>
+
+    <!-- ROW 2: ASYMMETRIC STACKED DESK (AI Lab + Workflow + Verified Licenses Ticket) -->
+    <div class="grid gap-8 lg:grid-cols-12 items-stretch">
+      
+      <!-- PAPER 3: APPLIED AI & NLP (Tilted -1.8deg, Scientific Grid Paper, Green Tape) -->
+      <article
+        class="paper-cutout paper-grid lg:col-span-4 p-6 sm:p-7 transform -rotate-1 sm:-rotate-2 hover:rotate-0 transition-transform duration-300 relative border-green-ink/30"
+        aria-labelledby="skills-ai-heading"
+      >
+        <span class="tape tape-top-center" style="--tape-color: #10b981;" aria-hidden="true"></span>
+
+        <div class="flex items-center justify-between border-b border-line pb-2 mb-4">
+          <span class="font-mono text-[10px] font-bold text-green-ink uppercase tracking-wider">
+            🔬 LAB NOTE #03
+          </span>
+          <Stamp color="green">AI / NLP</Stamp>
+        </div>
+
+        <h4 id="skills-ai-heading" class="text-xl font-black text-ink mb-1">
+          Applied AI & NLP Toolkit
+        </h4>
+        <p class="text-xs text-ink-soft mb-4">
+          Empirical machine learning and Indonesian transformer models.
+        </p>
+
+        <div class="flex flex-wrap gap-1.5 mb-5">
+          <span class="rounded bg-paper px-2 py-0.5 font-mono text-xs font-semibold text-ink border border-line">Python</span>
+          <span class="rounded bg-paper px-2 py-0.5 font-mono text-xs font-semibold text-ink border border-line">PyTorch</span>
+          <span class="rounded bg-green-tint px-2 py-0.5 font-mono text-xs font-bold text-green-ink border border-green-ink/30">IndoBERT</span>
+          <span class="rounded bg-paper px-2 py-0.5 font-mono text-xs font-semibold text-ink border border-line">HuggingFace</span>
+          <span class="rounded bg-paper px-2 py-0.5 font-mono text-xs font-semibold text-ink border border-line">Active Learning</span>
+          <span class="rounded bg-paper px-2 py-0.5 font-mono text-xs font-semibold text-ink border border-line">CNN Vision</span>
+        </div>
+
+        <p class="font-mono text-[10px] text-green-ink border-t border-dashed border-line pt-2">
+          ★ Active Learning & Annotation Efficiency
+        </p>
+      </article>
+
+      <!-- PAPER 4: WORKFLOW & EXECUTION (Tilted +1.5deg, Yellow Paper with Paperclip) -->
+      <article
+        class="paper-cutout lg:col-span-4 p-6 sm:p-7 transform rotate-1 sm:rotate-2 hover:rotate-0 transition-transform duration-300 relative bg-[#fef9c3] border-amber-300/80 text-ink"
+        aria-labelledby="skills-workflow-heading"
+      >
+        <!-- Paperclip at top -->
+        <span class="paper-clip left-8" aria-hidden="true"></span>
+
+        <div class="flex items-center justify-between border-b border-ink/15 pb-2 mb-4">
+          <span class="font-mono text-[10px] font-bold text-amber-900 uppercase tracking-wider">
+            📌 EXECUTION & CRAFT
+          </span>
+          <span class="font-mono text-[10px] font-bold text-ink/70">Tooling</span>
+        </div>
+
+        <h4 id="skills-workflow-heading" class="text-xl font-black text-ink mb-1">
+          Engineering Tooling
+        </h4>
+        <p class="text-xs text-ink/80 mb-4">
+          Clean version control, API testing, and UI design tokens.
+        </p>
+
+        <div class="flex flex-wrap gap-1.5 mb-5">
+          <span class="rounded bg-paper-light px-2 py-0.5 font-mono text-xs font-semibold text-ink border border-ink/15">Git & Clean Commits</span>
+          <span class="rounded bg-paper-light px-2 py-0.5 font-mono text-xs font-semibold text-ink border border-ink/15">GitHub Actions / CI</span>
+          <span class="rounded bg-paper-light px-2 py-0.5 font-mono text-xs font-semibold text-ink border border-ink/15">Postman API Testing</span>
+          <span class="rounded bg-paper-light px-2 py-0.5 font-mono text-xs font-semibold text-ink border border-ink/15">Figma UI & Tokens</span>
+          <span class="rounded bg-paper-light px-2 py-0.5 font-mono text-xs font-semibold text-ink border border-ink/15">Docker Basics</span>
+          <span class="rounded bg-paper-light px-2 py-0.5 font-mono text-xs font-semibold text-ink border border-ink/15">Markdown Tech Specs</span>
+        </div>
+
+        <p class="font-mono text-[10px] text-ink/70 border-t border-dashed border-ink/20 pt-2">
+          Strict PR Reviews & Systematic Debugging
+        </p>
+      </article>
+
+      <!-- PAPER 5: VERIFIED LICENSES & CERTIFICATIONS TICKET (Tilted -2deg, Manila Ticket Paper) -->
+      <article
+        class="paper-cutout lg:col-span-4 p-6 sm:p-7 transform -rotate-1 sm:-rotate-2 hover:rotate-0 transition-transform duration-300 relative bg-[#f5d688] border-ink/30 text-ink shadow-paper-lift flex flex-col justify-between"
+        aria-labelledby="skills-certs-heading"
+      >
+        <!-- Washi tape at top right -->
+        <span class="tape tape-top-right" style="--tape-color: #ef4444;" aria-hidden="true"></span>
+
+        <div>
+          <div class="flex items-center justify-between border-b border-ink/20 pb-2 mb-4">
+            <span class="font-mono text-[10px] font-bold text-ink uppercase tracking-wider">
+              📜 LICENSES & CERTIFICATES
+            </span>
+            <span class="rounded bg-ink px-1.5 py-0.5 font-mono text-[9px] font-bold text-paper-light uppercase">
+              Verified
+            </span>
+          </div>
+
+          <h4 id="skills-certs-heading" class="text-xl font-black text-ink mb-1">
+            Certifications & Badges
+          </h4>
+          <p class="text-xs text-ink/80 mb-3 font-sans">
+            Verified industry licenses, technical trainings, and IEEE accreditations.
+          </p>
+
+          <ul class="space-y-2.5 text-xs font-mono text-ink">
+            {certificates.map((cert) => (
+              <li class="flex items-start gap-2">
+                <span class="font-bold text-blue-ink shrink-0 mt-0.5">✓</span>
+                <div>
+                  {cert.credentialUrl ? (
+                    <a
+                      href={cert.credentialUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="font-bold text-ink hover:text-blue-ink transition-colors inline-flex items-center gap-1 leading-snug no-underline group/cert"
+                      title={`Verify ${cert.name}`}
+                    >
+                      <span>{cert.name}</span>
+                      <span class="text-[10px] text-blue-ink opacity-70 group-hover/cert:opacity-100" aria-hidden="true">↗</span>
+                    </a>
+                  ) : (
+                    <span class="font-bold text-ink block leading-snug">{cert.name}</span>
+                  )}
+                  <span class="text-[10px] text-ink/75 block mt-0.5 font-sans font-semibold">
+                    {cert.issuer} {cert.year ? `· ${cert.year}` : ''}
+                  </span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Action Button to LinkedIn -->
+        <div class="mt-4 pt-2.5 border-t border-dashed border-ink/30">
+          <a
+            href={linkedInUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-between rounded border border-ink bg-ink px-3 py-2 font-mono text-xs font-bold text-paper-light shadow-2xs hover:bg-blue-ink hover:border-blue-ink transition-colors no-underline"
+          >
+            <span>View Verified Credentials on LinkedIn</span>
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+</Section>

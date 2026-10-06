@@ -1,0 +1,121 @@
+---
+/**
+ * Styleguide internal — preview semua komponen scrapbook.
+ * Bukan bagian portfolio (noindex, tidak ada di navigasi).
+ * Buka di http://localhost:4321/styleguide
+ * Semua teks di sini contoh netral, bukan konten portfolio.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Section from '@/components/Section.astro';
+import PaperCard from '@/components/ui/PaperCard.astro';
+import StickyNote from '@/components/ui/StickyNote.astro';
+import HandNote from '@/components/ui/HandNote.astro';
+import Highlight from '@/components/ui/Highlight.astro';
+import Arrow from '@/components/ui/Arrow.astro';
+import Button from '@/components/ui/Button.astro';
+import Stamp from '@/components/ui/Stamp.astro';
+import Tag from '@/components/ui/Tag.astro';
+import PhotoFrame from '@/components/ui/PhotoFrame.astro';
+
+const colors = [
+  { name: 'paper', var: '--color-paper', note: 'background' },
+  { name: 'paper-light', var: '--color-paper-light', note: 'card' },
+  { name: 'paper-dark', var: '--color-paper-dark', note: 'surface' },
+  { name: 'line', var: '--color-line', note: 'border' },
+  { name: 'ink', var: '--color-ink', note: 'text' },
+  { name: 'ink-soft', var: '--color-ink-soft', note: 'text 2' },
+  { name: 'green', var: '--color-green', note: 'decor' },
+  { name: 'blue', var: '--color-blue', note: 'decor' },
+  { name: 'orange', var: '--color-orange', note: 'decor' },
+  { name: 'green-ink', var: '--color-green-ink', note: 'text' },
+  { name: 'blue-ink', var: '--color-blue-ink', note: 'text' },
+  { name: 'orange-ink', var: '--color-orange-ink', note: 'text' },
+];
+---
+
+<BaseLayout title="Styleguide" noindex>
+  <Section id="colors" title="Colors" index="A" label="palette">
+    <ul class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+      {
+        colors.map((c) => (
+          <li class="paper p-2">
+            <div class="h-14 rounded-[2px] border border-line" style={`background: var(${c.var});`} />
+            <p class="mt-2 font-mono text-xs">{c.name}</p>
+            <p class="font-mono text-xs text-ink-soft">{c.note}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <Section id="type" title="Typography" index="B" label="type" class="border-t border-line">
+    <div class="space-y-4">
+      <h1>Heading 1</h1>
+      <h2>Heading 2</h2>
+      <h3>Heading 3</h3>
+      <p class="max-w-prose">
+        Body text uses the main sans font for readability. A <Highlight>highlighted phrase</Highlight> marks
+        something important, and <Highlight color="green">a green one</Highlight> works too.
+      </p>
+      <HandNote arrow="curve-right">handwritten annotation</HandNote>
+      <p class="font-mono text-sm text-ink-soft">mono — labels, tags, metadata</p>
+    </div>
+  </Section>
+
+  <Section id="paper" title="Paper surfaces" index="C" label="paper" class="border-t border-line">
+    <div class="grid gap-8 md:grid-cols-3">
+      <PaperCard tilt="slight-left" tape="top-center" interactive>
+        <h3>Plain card</h3>
+        <p class="mt-2 text-ink-soft">Hover me — the paper lifts slightly.</p>
+      </PaperCard>
+      <PaperCard surface="lined" tilt="right" tape="top-left" tapeColor="green" interactive>
+        <h3>Lined notes</h3>
+        <p class="mt-2 text-ink-soft">For notes and short write-ups.</p>
+      </PaperCard>
+      <PaperCard surface="grid" tilt="slight-right" tape="top-right" tapeColor="blue" interactive>
+        <h3>Grid paper</h3>
+        <p class="mt-2 text-ink-soft">For experiment notes.</p>
+      </PaperCard>
+    </div>
+  </Section>
+
+  <Section id="notes" title="Sticky notes & stamps" index="D" label="notes" class="border-t border-line">
+    <div class="flex flex-wrap items-start gap-6">
+      <StickyNote title="orange" interactive>Short note content.</StickyNote>
+      <StickyNote color="green" tilt="slight-left" title="green" interactive>Short note content.</StickyNote>
+      <StickyNote color="blue" tilt="right" title="blue" interactive>Short note content.</StickyNote>
+      <div class="flex flex-wrap items-center gap-4 pt-2">
+        <Stamp>Published</Stamp>
+        <Stamp color="blue">Accepted</Stamp>
+        <Stamp color="orange" tilt={false}>Draft</Stamp>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="controls" title="Buttons, tags, arrows" index="E" label="controls" class="border-t border-line">
+    <div class="flex flex-wrap items-center gap-4">
+      <Button href="#controls">Primary</Button>
+      <Button href="#controls" variant="secondary">Secondary</Button>
+      <Button href="#controls" variant="ghost">Ghost link</Button>
+    </div>
+    <div class="mt-6 flex flex-wrap gap-2">
+      <Tag>tag-one</Tag>
+      <Tag>tag-two</Tag>
+      <Tag>tag-three</Tag>
+    </div>
+    <div class="mt-6 flex flex-wrap items-center gap-6 text-ink-soft">
+      <Arrow variant="right" />
+      <Arrow variant="down" />
+      <Arrow variant="curve-right" />
+      <Arrow variant="curve-down" />
+      <Arrow variant="loop" />
+    </div>
+  </Section>
+
+  <Section id="frames" title="Photo frames" index="F" label="frames" class="border-t border-line">
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <PhotoFrame src="[PROJECT IMAGE]" alt="" caption="placeholder state" tape="top-center" />
+      <PhotoFrame src="[PROJECT SCREENSHOT]" alt="" ratio="9 / 16" tilt="slight-right" caption="mobile ratio" class="max-w-56" />
+    </div>
+  </Section>
+</BaseLayout>

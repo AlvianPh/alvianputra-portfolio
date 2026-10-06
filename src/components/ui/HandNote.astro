@@ -1,0 +1,40 @@
+---
+/**
+ * Anotasi tulisan tangan — HANYA untuk label/catatan pendek, bukan paragraf.
+ * Opsional dengan panah di awal atau akhir.
+ */
+import Arrow from './Arrow.astro';
+import { accentText, tiltStyle, type Accent, type Tilt } from '@/lib/ui';
+
+interface Props {
+  as?: 'p' | 'span';
+  color?: Accent | 'ink';
+  tilt?: Tilt;
+  size?: 'sm' | 'md' | 'lg';
+  arrow?: 'right' | 'down' | 'curve-right' | 'curve-down' | 'loop';
+  arrowPosition?: 'start' | 'end';
+  class?: string;
+}
+
+const {
+  as: Tag = 'p',
+  color = 'blue',
+  tilt = 'slight-left',
+  size = 'md',
+  arrow,
+  arrowPosition = 'end',
+  class: className,
+} = Astro.props;
+
+const colorClass = color === 'ink' ? 'text-ink-soft' : accentText[color];
+const sizeClass = { sm: 'text-lg', md: 'text-xl', lg: 'text-2xl' }[size];
+---
+
+<Tag
+  class:list={['tilt inline-flex items-center gap-1 font-hand leading-tight', colorClass, sizeClass, className]}
+  style={tiltStyle(tilt)}
+>
+  {arrow && arrowPosition === 'start' && <Arrow variant={arrow} size={36} />}
+  <span><slot /></span>
+  {arrow && arrowPosition === 'end' && <Arrow variant={arrow} size={36} />}
+</Tag>

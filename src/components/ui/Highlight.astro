@@ -1,0 +1,12 @@
+---
+/** Stabilo di bawah teks penting. Pakai hemat: 1–2 kali per section. */
+import { accentFill, type Accent } from '@/lib/ui';
+
+interface Props {
+  color?: Accent;
+}
+
+const { color = 'orange' } = Astro.props;
+---
+
+<mark class="highlight bg-transparent text-inherit" style={`--hl-color: ${accentFill[color]};`}><slot /></mark>
