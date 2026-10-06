@@ -77,7 +77,7 @@ export const portfolio: Portfolio = {
       { label: 'Degree', value: 'Bachelor of Informatics' },
       { label: 'Institution', value: 'STMIK El Rahma Yogyakarta' },
       { label: 'GPA', value: '3.95 / 4.00' },
-      { label: 'Research', value: 'Jurnal FAHMA (Sinta 4) · ICERA' },
+      { label: 'Research', value: 'Concluded Dec 2025 · IEEE & FAHMA' },
       { label: 'Teaching', value: 'SMK Koperasi Yogyakarta (Sep 2025 — Present)' },
       { label: 'Location', value: 'Yogyakarta, Indonesia' },
     ],
@@ -92,6 +92,7 @@ export const portfolio: Portfolio = {
   },
 
   research: {
+    period: 'Concluded Dec 2025',
     topic: 'Adaptive Multi-Oracle Active Learning with IndoBERT for Indonesian Sentiment Classification',
     summary:
       'Applied machine learning & NLP research focused on data annotation cost reduction through an Adaptive Multi-Oracle Active Learning architecture. Combines IndoBERT contextual representations with entropy-based uncertainty routing across 3 label oracles: Human Annotator (weight 1.0), Pseudo-labels IndoBERT (weight 0.3), and Fine-tuned IndoBERT (weight 0.7).',
@@ -171,8 +172,8 @@ export const portfolio: Portfolio = {
         organization: 'Client & Production Deployments',
         type: 'engineering',
         description:
-          'Designing and shipping production mobile apps (Flutter) and fullstack web platforms (Laravel) including SIMPEG El-Rahma, Arthawira, and Seulanga Kost, with clean architecture and local data persistence.',
-        tags: ['Flutter', 'Laravel', 'REST API', 'Client Systems'],
+          'Designing and shipping production mobile apps (Flutter) and web platforms (Laravel), with end-to-end product design, UX mapping, and QA validation for client and institutional systems like SIMPEG El-Rahma, Arthawira, and Seulanga Kost.',
+        tags: ['Flutter', 'Laravel', 'Product Design (Figma)', 'Client Systems'],
       },
       {
         period: 'Sep 2025 — Present',

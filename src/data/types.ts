@@ -82,6 +82,7 @@ export interface Publication {
 }
 
 export interface Research {
+  period?: string;
   topic: string;
   summary: string;
   keywords: string[];

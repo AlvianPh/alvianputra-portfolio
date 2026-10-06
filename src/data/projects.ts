@@ -60,12 +60,12 @@ export const projects: Project[] = [
       'Mobile computer vision application for detecting and classifying traditional Javanese script (Aksara Jawa) using Flutter, OpenCV image preprocessing, and a trained Convolutional Neural Network (CNN).',
     narrative:
       'A cultural heritage preservation system utilizing computer vision to digitize traditional Javanese script. Combines a real-time mobile camera capture pipeline, canvas image preprocessing, and Convolutional Neural Network (CNN) inference with an interactive learning interface.',
-    image: '/images/jawir-3.png',
+    image: '/images/jawir.png',
     gallery: [
+      '/images/jawir.png',
+      '/images/jawir-1.png',
       '/images/jawir-3.png',
       '/images/jawir-2.png',
-      '/images/jawir-1.png',
-      '/images/jawir.png',
       '/images/jawir-4.png',
     ],
     stack: ['Flutter', 'Dart', 'CNN', 'Python', 'OpenCV', 'REST API'],
@@ -127,15 +127,15 @@ export const projects: Project[] = [
   },
   {
     name: 'SIMPEG El-Rahma',
-    context: 'Higher Education HRIS · Laravel Production',
+    context: 'Higher Education HRIS · Product Design & QA',
     category: 'web',
     date: 'AUG 2025 — JUN 2026',
     purpose:
-      'An active administrative human resource system deployed in production for STMIK El Rahma Yogyakarta.',
+      'Streamlined campus personnel governance by architecting user-centered administrative business flows, comprehensive Figma UI design tokens, and systematic system testing protocols.',
     description:
-      'Enterprise Human Resource Information System (HRIS) developed for STMIK El Rahma Yogyakarta. Manages lecturer academic credentials, staff rank promotions, dynamic letter generation, and administrative records.',
+      'Enterprise Human Resource Information System (HRIS) for STMIK El Rahma Yogyakarta. Spearheaded product design, administrative business process mapping, and quality assurance/testing (fullstack implementation engineered by Ilhan Manzis).',
     narrative:
-      'An active administrative human resource system deployed in production for STMIK El Rahma Yogyakarta. Replaced physical paper archives with centralized digital records, academic promotion tracking, and tiered administrative role-based access.',
+      'Spearheaded end-to-end product design and quality validation for STMIK El Rahma\'s institutional HRIS. Formulated administrative business workflows, architected high-fidelity Figma UI/UX components, and conducted comprehensive User Acceptance Testing (UAT). Development and codebase implementation were authored collaboratively by software engineer peer Ilhan Manzis.',
     image: '/images/simpeg.png',
     gallery: [
       '/images/simpeg.png',
@@ -144,25 +144,26 @@ export const projects: Project[] = [
       '/images/simpeg-3.png',
       '/images/simpeg-4.png',
     ],
-    stack: ['Laravel', 'PHP', 'MySQL', 'Blade Components', 'Bootstrap', 'Git'],
+    stack: ['Figma (UI/UX)', 'Business Process Flow', 'System & UAT Testing', 'Laravel (Collaborator)', 'MySQL'],
     links: [
-      { label: 'GitHub Repo', href: 'https://github.com/ilhanmanzis/simpeg' },
+      { label: 'GitHub Repo (Developer: Ilhan Manzis)', href: 'https://github.com/ilhanmanzis/simpeg' },
     ],
     stickyMeta: {
-      role: 'Web Engineer & Analyst',
+      role: 'Product Designer & QA Tester',
       timeline: 'Aug 2025 — Jun 2026',
-      arch: 'Modular Blade + MySQL',
+      arch: 'Figma UI/UX · Process Flow · UAT',
       status: 'Live in Production',
     },
     metrics: [
-      { val: 'Live', label: 'STMIK El Rahma Production' },
-      { val: '100%', label: 'Digital Staff Archiving' },
-      { val: 'Figma', label: 'High-Fidelity UI Match' },
+      { val: 'Design & QA', label: 'Product & Testing Lead' },
+      { val: '100%', label: 'Business Flow Specification' },
+      { val: 'Live', label: 'Campus Production Rollout' },
     ],
     highlights: [
-      'Maintained production codebase for campus human resource operations serving faculty and administrative staff.',
-      'Engineered automated academic credential tracking and service rank promotion eligibility calculators.',
-      'Standardized structured Blade layout templates with rigorous database migration audit logs.',
+      'Formulated comprehensive institutional business workflows covering faculty promotion, academic credentials, and staff archives.',
+      'Engineered high-fidelity Figma design token library and responsive interface mockups reflecting campus identity.',
+      'Conducted systematic User Acceptance Testing (UAT), regression checks, and administrative user validation before rollout.',
+      'Transparent collaboration: Core Laravel application and database architecture engineered by peer developer Ilhan Manzis.',
     ],
     featured: true,
   },
@@ -177,12 +178,12 @@ export const projects: Project[] = [
       'Comprehensive product design case study and high-fidelity prototype for construction site safety monitoring. Features daily digital check-in workflows, PPE (K3) inspection checklists, and verified hazard incident reporting.',
     narrative:
       'A UI/UX engineering case study aimed at reducing occupational hazards on construction sites. Integrates self-service daily digital attendance with mandatory Personal Protective Equipment (PPE/K3) verification checklists prior to site gate clearance, built on a tested Figma design token system.',
-    image: '/images/kerti-2.png',
+    image: '/images/kerti.png',
     gallery: [
+      '/images/kerti.png',
+      '/images/kerti-1.png',
       '/images/kerti-2.png',
       '/images/kerti-3.png',
-      '/images/kerti-1.png',
-      '/images/kerti.png',
       '/images/kerti-4.png',
     ],
     stack: ['Figma', 'Design Systems', 'Design Tokens', 'User Research', 'Usability Testing'],
