@@ -4,8 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  // Isi dengan domain Vercel kamu nanti (dipakai untuk canonical URL & SEO).
-  // site: 'https://[YOUR-DOMAIN].vercel.app',
+  site: 'https://alvianputra.my.id',
   output: 'static',
   vite: {
     // Cast: @tailwindcss/vite memakai tipe Vite yang lebih baru dari Vite bawaan Astro 5.
