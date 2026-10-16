@@ -90,8 +90,12 @@ for (let i = 0; i < enrichedProjects.length; i += 2) {
   const bottomProj = hasBottom ? enrichedProjects[i + 1] : enrichedProjects[i];
 
   const pairNumStr = pairId + 1 < 10 ? `0${pairId + 1}` : `${pairId + 1}`;
-  const topShort = topProj.name.split(' ')[0];
-  const bottomShort = hasBottom ? bottomProj.name.split(' ')[0] : 'Dossier';
+  const getShort = (p: (typeof enrichedProjects)[0]) => {
+    if (p.name.includes('SMK Koperasi')) return 'SMK Koperasi';
+    return p.name.split(' ')[0];
+  };
+  const topShort = getShort(topProj);
+  const bottomShort = hasBottom ? getShort(bottomProj) : 'Dossier';
   const label = `${pairNumStr} · ${topShort} & ${bottomShort}`;
 
   projectPairs.push({
