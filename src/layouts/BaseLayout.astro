@@ -36,6 +36,8 @@ const ogImage = isFilled(site.ogImage) && Astro.site ? new URL(site.ogImage, Ast
     <meta name="theme-color" content="#171412" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="author" content="Alvian Putra Hardiadi" />
+    <meta name="keywords" content="Alvian Putra Hardiadi, Alvian Putra, AlvianPh, Software Engineer, Mobile Developer Flutter, Laravel Developer, Applied AI, NLP IndoBERT, Portfolio Yogyakarta" />
     {canonical && <link rel="canonical" href={canonical} />}
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -46,6 +48,58 @@ const ogImage = isFilled(site.ogImage) && Astro.site ? new URL(site.ogImage, Ast
     {canonical && <meta property="og:url" content={canonical} />}
     {ogImage && <meta property="og:image" content={ogImage} />}
     <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+
+    <!-- JSON-LD Structured Data for Google Knowledge Graph & Rich Snippets -->
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://alvianputra.my.id/#person",
+          "name": "Alvian Putra Hardiadi",
+          "givenName": "Alvian Putra",
+          "familyName": "Hardiadi",
+          "url": "https://alvianputra.my.id",
+          "image": "https://alvianputra.my.id/images/profile.jpeg",
+          "jobTitle": "Software Engineer · Mobile & Web · Applied AI",
+          "description": description,
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Yogyakarta",
+            "addressCountry": "ID"
+          },
+          "knowsAbout": [
+            "Software Engineering",
+            "Mobile App Development",
+            "Flutter",
+            "Web Development",
+            "Laravel",
+            "Filament CMS",
+            "Artificial Intelligence",
+            "Natural Language Processing",
+            "Active Learning"
+          ],
+          "sameAs": [
+            "https://github.com/AlvianPh",
+            "https://www.linkedin.com/in/alvian-putra-hardiadi-b6647b254/"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://alvianputra.my.id/#website",
+          "url": "https://alvianputra.my.id",
+          "name": "Alvian Putra Hardiadi — Software Engineer Portfolio",
+          "description": description,
+          "publisher": {
+            "@id": "https://alvianputra.my.id/#person"
+          },
+          "inLanguage": "en"
+        }
+      ]
+    })} />
   </head>
   <body class="splash-active">
     <SplashScreen />
