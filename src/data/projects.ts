@@ -91,6 +91,47 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    name: 'SMK Koperasi Web & CMS',
+    context: 'Vocational School Web Portal & Institutional CMS · Laravel & Filament',
+    category: 'web',
+    date: 'ACTIVE · 2026',
+    purpose:
+      'An enterprise institutional web portal and custom Filament-powered CMS engineered for autonomous school content management and student admissions.',
+    description:
+      'Official web ecosystem and administrative CMS for SMK Koperasi Yogyakarta. Features 12 tailored Filament management resources, multi-role publishing workflows (Super Admin, Admin, Content Editor), verified SPMB admissions routing, and responsive public academic showcases.',
+    narrative:
+      'Architected as the primary digital gateway and administrative operations platform for SMK Koperasi Yogyakarta. Built with Laravel 12 and Filament PHP v3, it equips educators and administrative staff to independently govern academic curricula, vocational competencies (Accounting, Digital Business, DKV, Tourism), official announcements, verified admissions (SPMB), and media galleries without developer intervention.',
+    image: '/images/websitekoperasi.jpg',
+    gallery: [
+      '/images/websitekoperasi.jpg',
+      '/images/websitekoperasi-campus.jpg',
+      '/images/websitekoperasi-dkv.jpg',
+      '/images/websitekoperasi-bisnis.jpg',
+      '/images/websitekoperasi-akuntansi.jpg',
+    ],
+    stack: ['Laravel 12', 'Filament PHP v3', 'Tailwind CSS', 'MySQL', 'Blade', 'Alpine.js', 'Vite'],
+    links: [
+      { label: 'GitHub (Repository)', href: 'https://github.com/AlvianPh/websitekoperasi' },
+    ],
+    stickyMeta: {
+      role: 'Lead Fullstack Laravel & CMS Architect',
+      timeline: '2025 — Present',
+      arch: 'Laravel 12 + Filament v3 CMS',
+      status: 'Under Active Development · Handover Phase',
+    },
+    metrics: [
+      { val: '12', label: 'Filament CMS Resources' },
+      { val: '3-Tier', label: 'Role & Publishing Workflow' },
+      { val: '100%', label: 'Autonomous School Operations' },
+    ],
+    highlights: [
+      'Architected 12 dedicated Filament CMS resources empowering non-technical school staff to manage announcements, achievements, vocational programs, and faculty profiles.',
+      'Engineered multi-stage publication state machines (Draft, Published, Archived) with strict role segregation (Super Admin, Admin, Content Editor).',
+      'Integrated verified student admissions (SPMB) workflows, structured WhatsApp counseling routing, and dynamic metric sanitization.',
+    ],
+    featured: true,
+  },
+  {
     name: 'Seulanga Kost Management',
     context: 'Property Rental Management · Laravel Web',
     category: 'web',
@@ -102,7 +143,7 @@ export const projects: Project[] = [
     narrative:
       'Eliminated manual rental tracking inefficiencies and overdue payment follow-ups. This web platform automates digital invoice dispatch via WhatsApp business templates and provides real-time room occupancy metrics for property managers.',
     image: '/images/seulanga.png',
-    gallery: ['/images/seulanga.png'],
+    gallery: ['/images/seulanga.png', '/images/kost.png'],
     stack: ['Laravel', 'PHP', 'MySQL', 'Tailwind CSS', 'WhatsApp Gateway', 'REST API'],
     links: [
       { label: 'GitHub Repo', href: 'https://github.com/AlvianPh/laravel_seulanga' },
@@ -208,47 +249,6 @@ export const projects: Project[] = [
       'Formulated user-centered construction worker journey reducing check-in overhead while enforcing safety rules.',
       'Constructed complete atomic Figma design token library with high-contrast accessibility standards.',
       'Conducted field walkthrough tests validating readability under intense outdoor sunlight conditions.',
-    ],
-    featured: true,
-  },
-  {
-    name: 'SMK Koperasi Web & CMS',
-    context: 'Vocational School Web Portal & Institutional CMS · Laravel & Filament',
-    category: 'web',
-    date: 'ACTIVE · 2026',
-    purpose:
-      'An enterprise institutional web portal and custom Filament-powered CMS engineered for autonomous school content management and student admissions.',
-    description:
-      'Official web ecosystem and administrative CMS for SMK Koperasi Yogyakarta. Features 12 tailored Filament management resources, multi-role publishing workflows (Super Admin, Admin, Content Editor), verified SPMB admissions routing, and responsive public academic showcases.',
-    narrative:
-      'Architected as the primary digital gateway and administrative operations platform for SMK Koperasi Yogyakarta. Built with Laravel 12 and Filament PHP v3, it equips educators and administrative staff to independently govern academic curricula, vocational competencies (Accounting, Digital Business, DKV, Tourism), official announcements, verified admissions (SPMB), and media galleries without developer intervention.',
-    image: '/images/websitekoperasi.jpg',
-    gallery: [
-      '/images/websitekoperasi.jpg',
-      '/images/websitekoperasi-campus.jpg',
-      '/images/websitekoperasi-dkv.jpg',
-      '/images/websitekoperasi-bisnis.jpg',
-      '/images/websitekoperasi-akuntansi.jpg',
-    ],
-    stack: ['Laravel 12', 'Filament PHP v3', 'Tailwind CSS', 'MySQL', 'Blade', 'Alpine.js', 'Vite'],
-    links: [
-      { label: 'GitHub (Repository)', href: 'https://github.com/AlvianPh/websitekoperasi' },
-    ],
-    stickyMeta: {
-      role: 'Lead Fullstack Laravel & CMS Architect',
-      timeline: '2025 — Present',
-      arch: 'Laravel 12 + Filament v3 CMS',
-      status: 'Under Active Development · Handover Phase',
-    },
-    metrics: [
-      { val: '12', label: 'Filament CMS Resources' },
-      { val: '3-Tier', label: 'Role & Publishing Workflow' },
-      { val: '100%', label: 'Autonomous School Operations' },
-    ],
-    highlights: [
-      'Architected 12 dedicated Filament CMS resources empowering non-technical school staff to manage announcements, achievements, vocational programs, and faculty profiles.',
-      'Engineered multi-stage publication state machines (Draft, Published, Archived) with strict role segregation (Super Admin, Admin, Content Editor).',
-      'Integrated verified student admissions (SPMB) workflows, structured WhatsApp counseling routing, and dynamic metric sanitization.',
     ],
     featured: true,
   },

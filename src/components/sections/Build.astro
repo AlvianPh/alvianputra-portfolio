@@ -92,6 +92,7 @@ for (let i = 0; i < enrichedProjects.length; i += 2) {
   const pairNumStr = pairId + 1 < 10 ? `0${pairId + 1}` : `${pairId + 1}`;
   const getShort = (p: (typeof enrichedProjects)[0]) => {
     if (p.name.includes('SMK Koperasi')) return 'SMK Koperasi';
+    if (p.name.includes('Kost') || p.name.includes('Seulanga')) return 'Kost';
     return p.name.split(' ')[0];
   };
   const topShort = getShort(topProj);
