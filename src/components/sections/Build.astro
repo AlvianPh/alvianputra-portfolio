@@ -236,12 +236,24 @@ for (let i = 0; i < enrichedProjects.length; i += 2) {
                   ))}
                 </div>
 
-                <!-- Prominent Action Button -->
-                <div class="pt-3">
+                <!-- Prominent Action Buttons & Direct Quick Links -->
+                <div class="pt-3 flex flex-wrap items-center gap-2.5">
                   <span class="inline-flex items-center gap-2 rounded border border-white/30 bg-white/10 px-4 py-2 font-mono text-xs font-bold text-paper-light shadow-sm group-hover:bg-white group-hover:text-ink transition-all">
                     <span>VIEW FULL DOSSIER</span>
                     <span aria-hidden="true">→</span>
                   </span>
+                  {topProj.links.map((link) => (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center gap-1.5 rounded border border-white/25 bg-white/10 px-3 py-1.5 font-mono text-xs font-semibold text-paper-light hover:bg-white hover:text-ink transition-all z-10 shadow-xs"
+                      title={link.label}
+                    >
+                      <span>{link.label.includes('Figma') ? '🎨 Figma' : link.label.includes('Live') || link.label.includes('Website') ? '🌐 Live Web' : '💻 GitHub'}</span>
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  ))}
                 </div>
               </div>
 
@@ -314,12 +326,24 @@ for (let i = 0; i < enrichedProjects.length; i += 2) {
                   ))}
                 </div>
 
-                <!-- Prominent Action Button -->
-                <div class="pt-3">
+                <!-- Prominent Action Buttons & Direct Quick Links -->
+                <div class="pt-3 flex flex-wrap items-center gap-2.5">
                   <span class="inline-flex items-center gap-2 rounded border border-ink bg-ink px-4 py-2 font-mono text-xs font-bold text-paper-light shadow-sm group-hover:bg-blue-ink group-hover:border-blue-ink transition-all">
                     <span>VIEW FULL DOSSIER</span>
                     <span aria-hidden="true">→</span>
                   </span>
+                  {bottomProj.links.map((link) => (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center gap-1.5 rounded border border-ink/30 bg-paper/90 px-3 py-1.5 font-mono text-xs font-bold text-ink hover:bg-ink hover:text-paper-light transition-all z-10 shadow-2xs"
+                      title={link.label}
+                    >
+                      <span>{link.label.includes('Figma') ? '🎨 Figma' : link.label.includes('Live') || link.label.includes('Website') ? '🌐 Live Web' : '💻 GitHub'}</span>
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  ))}
                 </div>
               </div>
 
@@ -711,7 +735,7 @@ for (let i = 0; i < enrichedProjects.length; i += 2) {
         });
       }
 
-      // Populate Action Links
+      // Populate Action Links with distinctive category styling
       if (linksContainerEl) {
         linksContainerEl.innerHTML = '';
         (p.links || []).forEach((link: { label: string; href: string }) => {
@@ -719,8 +743,26 @@ for (let i = 0; i < enrichedProjects.length; i += 2) {
           a.href = link.href;
           a.target = '_blank';
           a.rel = 'noopener noreferrer';
-          a.className = 'btn btn-primary inline-flex items-center gap-1.5 shadow-sm text-xs';
-          a.innerHTML = `<span>📁 ${link.label}</span><span aria-hidden="true">↗</span>`;
+          const isLive = link.label.includes('Live') || link.label.includes('Website');
+          const isFigma = link.label.includes('Figma');
+          const isGithub = link.label.includes('GitHub');
+
+          let icon = '📁';
+          let btnClass = 'btn btn-primary inline-flex items-center gap-1.5 shadow-sm text-xs font-bold';
+
+          if (isLive) {
+            icon = '🌐';
+            btnClass = 'inline-flex items-center gap-1.5 rounded border border-green-ink bg-green-ink px-3.5 py-1.5 font-mono text-xs font-bold text-paper-light shadow-sm hover:opacity-90 transition-all';
+          } else if (isFigma) {
+            icon = '🎨';
+            btnClass = 'inline-flex items-center gap-1.5 rounded border border-[#a259ff] bg-[#a259ff] px-3.5 py-1.5 font-mono text-xs font-bold text-paper-light shadow-sm hover:opacity-90 transition-all';
+          } else if (isGithub) {
+            icon = '💻';
+            btnClass = 'inline-flex items-center gap-1.5 rounded border border-line bg-paper px-3.5 py-1.5 font-mono text-xs font-bold text-ink shadow-2xs hover:bg-paper-dark transition-all';
+          }
+
+          a.className = btnClass;
+          a.innerHTML = `<span>${icon} ${link.label}</span><span aria-hidden="true">↗</span>`;
           linksContainerEl.appendChild(a);
         });
       }

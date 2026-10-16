@@ -146,7 +146,9 @@ export const projects: Project[] = [
     ],
     stack: ['Figma (UI/UX)', 'Business Process Flow', 'System & UAT Testing', 'Laravel (Collaborator)', 'MySQL'],
     links: [
-      { label: 'GitHub Repo (Developer: Ilhan Manzis)', href: 'https://github.com/ilhanmanzis/simpeg' },
+      { label: 'Live Website', href: 'https://simpeg.ilhanmanzis.my.id/' },
+      { label: 'Figma UI/UX', href: 'https://www.figma.com/design/41cLqlpN0JP67qc3Oj0A36/Sistem-Kepegawaian-UI-UX?node-id=289-4993&t=9VgteWjnhykgMiek-0' },
+      { label: 'GitHub (Developer: Ilhan Manzis)', href: 'https://github.com/ilhanmanzis/simpeg' },
     ],
     stickyMeta: {
       role: 'Product Designer & QA Tester',
