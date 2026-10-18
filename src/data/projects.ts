@@ -101,13 +101,13 @@ export const projects: Project[] = [
       'Official web ecosystem and administrative CMS for SMK Koperasi Yogyakarta. Features 12 tailored Filament management resources, multi-role publishing workflows (Super Admin, Admin, Content Editor), verified SPMB admissions routing, and responsive public academic showcases.',
     narrative:
       'Architected as the primary digital gateway and administrative operations platform for SMK Koperasi Yogyakarta. Built with Laravel 12 and Filament PHP v3, it equips educators and administrative staff to independently govern academic curricula, vocational competencies (Accounting, Digital Business, DKV, Tourism), official announcements, verified admissions (SPMB), and media galleries without developer intervention.',
-    image: '/images/websitekoperasi.jpg',
+    image: '/images/websitekoperasi.png',
     gallery: [
-      '/images/websitekoperasi.jpg',
-      '/images/websitekoperasi-campus.jpg',
-      '/images/websitekoperasi-dkv.jpg',
-      '/images/websitekoperasi-bisnis.jpg',
-      '/images/websitekoperasi-akuntansi.jpg',
+      '/images/websitekoperasi.png',
+      '/images/websitekoperasi-bisnis.png',
+      '/images/websitekoperasi-dkv.png',
+      '/images/websitekoperasi-akuntansi.png',
+      '/images/websitekoperasi-ulw.png',
     ],
     stack: ['Laravel 12', 'Filament PHP v3', 'Tailwind CSS', 'MySQL', 'Blade', 'Alpine.js', 'Vite'],
     links: [
