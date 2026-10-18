@@ -143,7 +143,7 @@ export const projects: Project[] = [
     narrative:
       'Eliminated manual rental tracking inefficiencies and overdue payment follow-ups. This web platform automates digital invoice dispatch via WhatsApp business templates and provides real-time room occupancy metrics for property managers.',
     image: '/images/seulanga.png',
-    gallery: ['/images/seulanga.png', '/images/kost.png'],
+    gallery: ['/images/seulanga.png', '/images/seulanga2.png'],
     stack: ['Laravel', 'PHP', 'MySQL', 'Tailwind CSS', 'WhatsApp Gateway', 'REST API'],
     links: [
       { label: 'GitHub Repo', href: 'https://github.com/AlvianPh/laravel_seulanga' },
