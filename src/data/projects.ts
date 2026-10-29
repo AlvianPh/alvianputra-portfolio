@@ -23,7 +23,11 @@ export const projects: Project[] = [
     narrative:
       'Engineered to resolve financial privacy concerns and eliminate transaction query latency without relying on continuous cloud connectivity. All wallet operations, balance audits, and budgeting logic execute instantaneously on an offline-first SQLite/Drift local database powered by reactive Riverpod state flows.',
     image: '/images/arthawira.png',
-    gallery: ['/images/arthawira.png', '/images/arthawira-screen.png'],
+    gallery: [
+      '/images/arthawira.png',
+      '/images/arthawira-ai.png',
+      '/images/arthawira-wallet.png',
+    ],
     stack: ['Flutter', 'Dart', 'Riverpod', 'Drift (SQLite)', 'Supabase', 'Figma'],
     links: [
       { label: 'Website & App', href: 'https://arthawira.vercel.app/' },
