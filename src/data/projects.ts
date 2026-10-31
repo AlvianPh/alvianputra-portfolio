@@ -119,7 +119,7 @@ export const projects: Project[] = [
     ],
     stickyMeta: {
       role: 'Lead Fullstack Laravel & CMS Architect',
-      timeline: '2025 — Present',
+      timeline: 'Sep 2026 — Present',
       arch: 'Laravel 12 + Filament v3 CMS',
       status: 'Under Active Development · Handover Phase',
     },

@@ -78,7 +78,7 @@ export const portfolio: Portfolio = {
       { label: 'Institution', value: 'STMIK El Rahma Yogyakarta' },
       { label: 'GPA', value: '3.95 / 4.00' },
       { label: 'Research', value: 'Concluded Dec 2025 · IEEE & FAHMA' },
-      { label: 'Teaching', value: 'SMK Koperasi Yogyakarta (Sep 2025 — Present)' },
+      { label: 'Teaching', value: 'SMK Koperasi Yogyakarta (Sep 2025 — Nov 2026)' },
       { label: 'Location', value: 'Yogyakarta, Indonesia' },
     ],
   },
@@ -141,14 +141,14 @@ export const portfolio: Portfolio = {
 
   teaching: {
     intro:
-      'Since September 2025, I have been serving as a ==Coding & Artificial Intelligence Teacher at SMK Koperasi Yogyakarta==, leading 7 classes with ~140 vocational students. This experience strengthens my ability to communicate technical architectures clearly, debug systematically, and mentor junior developers.',
+      'From September 2025 to November 2026, I served as a ==Coding & Artificial Intelligence Teacher at SMK Koperasi Yogyakarta==, leading 7 classes with ~140 vocational students. This experience strengthened my ability to communicate technical architectures clearly, debug systematically, and mentor junior developers.',
     subject: 'Coding & Artificial Intelligence Teacher',
     institution: 'SMK Koperasi Yogyakarta',
-    duration: 'Sep 2025 — Present',
+    duration: 'Sep 2025 — Nov 2026',
     stats: [
       { value: '7', label: 'Vocational Classes' },
       { value: '140+', label: 'Students Taught' },
-      { value: 'Active', label: 'Vocational Teacher' },
+      { value: 'Completed', label: '1-Year Teaching Cycle' },
     ],
     curriculum: 'Authored 6 Capaian Pembelajaran (CP) for Grade 10 Coding & AI, paired with Foundational Figma UI/UX for Grade 12.',
     highlights: [
@@ -176,7 +176,7 @@ export const portfolio: Portfolio = {
         tags: ['Flutter', 'Laravel', 'Product Design (Figma)', 'Client Systems'],
       },
       {
-        period: 'Sep 2025 — Present',
+        period: 'Sep 2025 — Nov 2026',
         role: 'Coding & Artificial Intelligence Teacher',
         organization: 'SMK Koperasi Yogyakarta',
         type: 'teaching',
