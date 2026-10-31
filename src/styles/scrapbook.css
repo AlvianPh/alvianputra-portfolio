@@ -589,6 +589,25 @@
     50% { transform: translateY(-5px) rotate(-3.5deg); }
   }
 
+  /* Floating Social Scrapbook Stamps around Name */
+  .social-stamp-github {
+    animation: floatStamp1 5.4s ease-in-out infinite;
+    transform-origin: center center;
+  }
+  .social-stamp-linkedin {
+    animation: floatStamp2 6.2s ease-in-out 0.6s infinite;
+    transform-origin: center center;
+  }
+
+  @keyframes floatStamp1 {
+    0%, 100% { transform: translateY(0px) rotate(-6deg); }
+    50% { transform: translateY(-7px) rotate(-3.5deg); }
+  }
+  @keyframes floatStamp2 {
+    0%, 100% { transform: translateY(0px) rotate(5deg); }
+    50% { transform: translateY(-8px) rotate(2.5deg); }
+  }
+
   /* Cat Sticker Interaction */
   .cat-sticker {
     transition: transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1);
